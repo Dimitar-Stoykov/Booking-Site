@@ -1,0 +1,96 @@
+/*.footer {*/
+/*    background-color: #1e62d8; !* Background color of the footer *!*/
+/*    color: #fff; !* Text color *!*/
+/*    padding: 20px 0; !* Padding top and bottom *!*/
+/*}*/
+
+/*!* Footer Links *!*/
+/*.footer-nav {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.footer-nav li {*/
+/*    display: inline;*/
+/*    margin-right: 20px; !* Spacing between links *!*/
+/*}*/
+
+/*.footer-nav li:last-child {*/
+/*    margin-right: 0; !* Remove right margin from the last link *!*/
+/*}*/
+
+/*.footer-nav li a {*/
+/*    color: #fff; !* Link color *!*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*.footer-nav li a:hover {*/
+/*    text-decoration: underline; !* Underline on hover *!*/
+/*}*/
+
+/*!* Media Query for Adjusting Styles on Smaller Screens *!*/
+/*@media (max-width: 767px) {*/
+/*    .footer-nav {*/
+/*        display: block; !* Change to block display on smaller screens *!*/
+/*        text-align: center; !* Center align links *!*/
+/*    }*/
+
+/*    .footer-nav li {*/
+/*        display: block;*/
+/*        margin: 0;*/
+/*        margin-bottom: 10px; !* Spacing between links *!*/
+/*    }*/
+/*}*/
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1e62d8; /* Background color of the footer */
+    color: #fff; /* Text color */
+    padding: 20px 0; /* Padding top and bottom */
+    z-index: 999; /* Ensure footer is above other content */
+}
+
+/* Footer Links */
+.footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Center align links */
+}
+
+.footer-nav li {
+    display: inline;
+    margin-right: 20px; /* Spacing between links */
+}
+
+.footer-nav li:last-child {
+    margin-right: 0; /* Remove right margin from the last link */
+}
+
+.footer-nav li a {
+    color: #fff; /* Link color */
+    text-decoration: none;
+}
+
+.footer-nav li a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Media Query for Adjusting Styles on Smaller Screens */
+@media (max-width: 767px) {
+    .footer-nav {
+        display: block; /* Change to block display on smaller screens */
+        text-align: center; /* Center align links */
+    }
+
+    .footer-nav li {
+        display: block;
+        margin: 0;
+        margin-bottom: 10px; /* Spacing between links */
+    }
+}

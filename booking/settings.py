@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'booking.accounts',
+    'booking.bookings',
+    'booking.hotels',
+    'booking.common',
+
 ]
 
 MIDDLEWARE = [
@@ -122,3 +128,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = "media/"
+
+MEDIA_ROOT = BASE_DIR / "mediafiles"
+
+STATICFILES_DIRS = (
+    BASE_DIR / 'staticfiles',
+)
+
+# AUTH_USER_MODEL = 'accounts.PetstagramUser'
+#
+# LOGIN_REDIRECT_URL = reverse_lazy("home page")
+# LOGIN_URL = reverse_lazy("signin profile")
+# LOGOUT_REDIRECT_URL = reverse_lazy("home page")

@@ -1,0 +1,252 @@
+/*.offer {*/
+/*    background-color: #f8f8f8;*/
+/*    padding: 20px;*/
+/*    margin: 10px 0;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.offer h2 {*/
+/*    margin-top: 0;*/
+/*    color: #1e62d8;*/
+/*}*/
+
+/*.offer p {*/
+/*    margin-bottom: 0;*/
+/*}*/
+
+/*.scrollable-content {*/
+/*    height: calc(100vh - 70px); !* Adjust height as needed *!*/
+/*    overflow-y: auto;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+/*.offer {*/
+/*    margin-bottom: 20px; !* Add some spacing between offers *!*/
+/*}*/
+
+/*.offer {*/
+/*    display: flex;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+/*.offer-img {*/
+/*    flex: 0 0 200px; !* Set width of the image column *!*/
+/*    margin-right: 20px; !* Add some space between image and details *!*/
+/*}*/
+/*.offer-img img {*/
+/*    max-width: 100%; !* Ensure the image doesn't exceed its container *!*/
+/*    height: auto; !* Maintain aspect ratio *!*/
+/*}*/
+/*.offer-details {*/
+/*    flex: 1; !* Allow details column to take remaining space *!*/
+/*}*/
+
+/*.offer {*/
+/*    display: flex;*/
+/*    margin-bottom: 30px; !* Increase spacing between offers *!*/
+/*    padding: 20px; !* Increase padding around each offer *!*/
+/*    background-color: #f9f9f9; !* Optional: Add background color to offers *!*/
+/*    border-radius: 10px; !* Optional: Add border radius to offers *!*/
+/*}*/
+/*.offer-img {*/
+/*    flex: 0 0 200px; !* Set width of the image column *!*/
+/*    margin-right: 20px; !* Add some space between image and details *!*/
+/*}*/
+/*.offer-img img {*/
+/*    max-width: 100%; !* Ensure the image doesn't exceed its container *!*/
+/*    height: auto; !* Maintain aspect ratio *!*/
+/*    border-radius: 8px; !* Optional: Add border radius to images *!*/
+/*}*/
+/*.offer-details {*/
+/*    flex: 1; !* Allow details column to take remaining space *!*/
+/*}*/
+
+/*        .offer {*/
+/*            display: flex;*/
+/*            margin-bottom: 30px; !* Increase spacing between offers *!*/
+/*            padding: 40px; !* Increase padding around each offer *!*/
+/*            background-color: #f8f8f8; !* Background color of the offer *!*/
+/*            border-radius: 10px; !* Optional: Add border radius to offers *!*/
+/*            width: 80%; !* Set the width of the offer *!*/
+/*            max-width: 800px; !* Set the maximum width of the offer *!*/
+/*            margin-left: auto; !* Center the offer horizontally *!*/
+/*            margin-right: auto; !* Center the offer horizontally *!*/
+/*        }*/
+/*        .offer h2 {*/
+/*            margin-top: 0;*/
+/*            color: #1e62d8; !* Color of the heading *!*/
+/*        }*/
+/*        .offer p {*/
+/*            margin-bottom: 0;*/
+/*        }*/
+/*        .offer-img {*/
+/*            flex: 0 0 200px; !* Set width of the image column *!*/
+/*            margin-right: 40px; !* Add some space between image and details *!*/
+/*        }*/
+/*        .offer-img img {*/
+/*            max-width: 100%; !* Ensure the image doesn't exceed its container *!*/
+/*            height: auto; !* Maintain aspect ratio *!*/
+/*            border-radius: 8px; !* Optional: Add border radius to images *!*/
+/*        }*/
+/*        .offer-details {*/
+/*            flex: 1; !* Allow details column to take remaining space *!*/
+/*        }*/
+/*        .scrollable-content {*/
+/*            height: calc(100vh - 70px); !* Adjust height as needed *!*/
+/*            overflow-y: auto;*/
+/*            display: flex;*/
+/*            flex-direction: column;*/
+/*            justify-content: center;*/
+/*            align-items: center;*/
+/*        }*/
+
+
+/*TYPE 2*/
+.offer:first-child {
+    margin-top: 90px; /* Adjust as needed to create space */
+}
+.offer {
+    display: flex;
+    margin-bottom: 90px; /* Increase spacing between offers */
+    padding: 40px; /* Increase padding around each offer */
+    background-color: #f8f8f8; /* Background color of the offer */
+    border-radius: 20px; /* Add border radius to create a frame */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    width: 80%; /* Set the width of the offer */
+    max-width: 800px; /* Set the maximum width of the offer */
+    margin-left: auto; /* Center the offer horizontally */
+    margin-right: auto; /* Center the offer horizontally */
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXdjsz5tOOT_N7Be-O2XRs4V9tkrZ2aX-5aw&usqp=CAU');
+    background-size: cover; /* Ensure the background image covers the entire element */
+    background-position: center;
+}
+.offer h2 {
+    margin-top: 0;
+    color: #1e62d8; /* Color of the heading */
+}
+.offer p {
+    margin-bottom: 10px; /* Add margin below each paragraph */
+}
+.offer-img {
+    flex: 0 0 200px; /* Set width of the image column */
+    margin-right: 40px; /* Add some space between image and details */
+}
+.offer-img img {
+    max-width: 100%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Add border radius to images */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+.offer-details {
+    flex: 1; /* Allow details column to take remaining space */
+}
+.details-button {
+    background-color: #1e62d8; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 20px; /* Button border radius */
+    font-size: 16px; /* Button font size */
+    cursor: pointer; /* Add pointer cursor */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background color and text color */
+}
+
+.details-button:hover {
+    background-color: #13549d; /* Change background color on hover */
+    color: #fff; /* Change text color to white on hover */
+}
+.scrollable-content {
+    /*height: calc(100vh - 70px); !* Adjust height as needed *!*/
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*TYPE 3*/
+
+/*.scrollable-content {*/
+/*    height: calc(100vh - 70px); !* Adjust height as needed *!*/
+/*    overflow-y: auto;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.offer {*/
+/*    margin-bottom: 30px; !* Increase spacing between offers *!*/
+/*    padding: 20px; !* Increase padding around each offer *!*/
+/*    background-color: #f8f8f8; !* Background color of the offer *!*/
+/*    border-radius: 10px; !* Add border radius to offers *!*/
+/*    width: 80%; !* Set the width of the offer *!*/
+/*    max-width: 800px; !* Set the maximum width of the offer *!*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* Add shadow for visual effect *!*/
+/*}*/
+
+/*.offer h2 {*/
+/*    margin-top: 0;*/
+/*    color: #1e62d8; !* Color of the heading *!*/
+/*}*/
+
+/*.offer p {*/
+/*    margin-bottom: 0;*/
+/*}*/
+
+/*.offer-img {*/
+/*    flex: 0 0 200px; !* Set width of the image column *!*/
+/*    margin-right: 20px; !* Add some space between image and details *!*/
+/*}*/
+
+/*.offer-img img {*/
+/*    max-width: 100%; !* Ensure the image doesn't exceed its container *!*/
+/*    height: auto; !* Maintain aspect ratio *!*/
+/*    border-radius: 8px; !* Add border radius to images *!*/
+/*}*/
+
+/*.offer-details {*/
+/*    flex: 1; !* Allow details column to take remaining space *!*/
+/*}*/
+
+
+/*TYPE 4*/
+/*.offer {*/
+/*    margin-bottom: 60px; !* Increase spacing between offers *!*/
+/*    padding: 20px; !* Increase padding around each offer *!*/
+/*    background-color: #f8f8f8; !* Background color of the offer *!*/
+/*    border-radius: 10px; !* Add border radius to offers *!*/
+/*    width: calc(100% - 40px); !* Set the width of the offer *!*/
+/*    max-width: 800px; !* Set the maximum width of the offer *!*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* Add shadow for visual effect *!*/
+/*    margin-top: 20px; !* Add top margin to create space between navbar and offers *!*/
+/*    margin-left: auto; !* Center the offer horizontally *!*/
+/*    margin-right: auto; !* Center the offer horizontally *!*/
+/*}*/
+
+/*.offer h2 {*/
+/*    margin-top: 0;*/
+/*    color: #1e62d8; !* Color of the heading *!*/
+/*}*/
+
+/*.offer p {*/
+/*    margin-bottom: 0;*/
+/*}*/
+
+/*.offer-img {*/
+/*    flex: 0 0 200px; !* Set width of the image column *!*/
+/*    margin-right: 20px; !* Add some space between image and details *!*/
+/*}*/
+
+/*.offer-img img {*/
+/*    max-width: 100%; !* Ensure the image doesn't exceed its container *!*/
+/*    height: auto; !* Maintain aspect ratio *!*/
+/*    border-radius: 8px; !* Add border radius to images *!*/
+/*}*/
+
+/*.offer-details {*/
+/*    flex: 1; !* Allow details column to take remaining space *!*/
+/*}*/
+

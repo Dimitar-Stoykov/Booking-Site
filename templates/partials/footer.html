@@ -1,16 +1,53 @@
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p>&copy; 2024 Exotic Travel. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-right">
-                <ul class="footer-nav">
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                </ul>
+{#<footer class="footer">#}
+{#    <div class="footer" id="footer">#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-6">#}
+{#                <p>&copy; 2024 Exotic Travel. All rights reserved.</p>#}
+{#            </div>#}
+{#            <div class="col-md-6 text-right">#}
+{#                <ul class="footer-nav">#}
+{#                    <li><a href="#">Terms of Service</a></li>#}
+{#                    <li><a href="#">Privacy Policy</a></li>#}
+{#                    <li><a href="#">Cookie Policy</a></li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    </div>#}
+{#</footer>#}
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2024 Exotic Travel. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <ul class="footer-nav">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+
+    <script>
+        var lastScrollTop = 0;
+        window.addEventListener("scroll", function() {
+            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            var isAtBottom = currentScroll >= (document.documentElement.scrollHeight - window.innerHeight);
+            if (currentScroll > lastScrollTop && isAtBottom) {
+                document.getElementById("footer").style.transform = "translateY(0)"; // Show footer when scrolling down and at bottom
+            } else {
+                document.getElementById("footer").style.transform = "translateY(100%)"; // Hide footer otherwise
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+        }, false);
+
+        // Initially hide the footer
+        document.getElementById("footer").style.transform = "translateY(100%)";
+    </script>

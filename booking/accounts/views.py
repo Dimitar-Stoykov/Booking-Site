@@ -1,8 +1,9 @@
+
 from django.contrib.auth import views as auth_views, logout
 from django.contrib.auth import mixins as auth_mixins
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
 from booking.accounts.forms import BookingUserCreationForm
@@ -22,9 +23,13 @@ class BookingLoginView(auth_views.LoginView):
     redirect_authenticated_user = True
 
 
-class ProfileDetailView(auth_mixins.LoginRequiredMixin,views.DetailView):
+class ProfileDetailView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     queryset = Profile.objects.prefetch_related('user').all()
     template_name = 'accounts/profile_details.html'
+    fields = ('first_name', 'last_name', 'date_of_birth', 'money')
+
+    def get_success_url(self):
+        return reverse_lazy('profile_details', kwargs={'pk': self.object.pk})
 
 
 class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):

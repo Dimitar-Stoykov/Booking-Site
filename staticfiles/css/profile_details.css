@@ -1,61 +1,102 @@
-/* Add custom styles for the profile details page */
-.container.profile-details {
-    margin-top: 90px; /* Adjust margin from the top */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 80px 0 80px; /* Add top and bottom padding to push content down */
+    background-color: #fafafa;
+}
+.container {
+    max-width: 1200px; /* Adjust max-width as needed */
+    margin: 0 auto;
+    padding: 20px;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.col {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.col-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
 }
 
-.profile-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
+/* Styles for cards and content */
+.card {
     background-color: #f8f8f8;
     border-radius: 20px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.profile-details h1 {
-    margin-top: 0;
-    color: #1e62d8;
-}
-
-.profile-details h2 {
-    color: #1e62d8;
-}
-
-.profile-details p {
-    margin-bottom: 10px;
-}
-
-.profile-details .profile-picture {
-    max-width: 200px; /* Set max width for profile picture */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.profile-details .details-button {
-    background-color: #1e62d8;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.profile-details .details-button:hover {
-    background-color: #13549d;
+    padding: 20px;
+    margin-bottom: 30px;
 }
 
 .profile-picture {
-    width: 200px; /* Set width for the profile picture */
-    height: 200px; /* Set height for the profile picture */
-    background-color: #ccc; /* Placeholder background color */
-    border-radius: 50%; /* Make it round */
-    margin-bottom: 20px; /* Adjust margin as needed */
-    /* Add other styles as needed */
+    width: 140px;
+    height: 140px;
+    background-color: rgb(233, 236, 239);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+.profile-picture span {
+    color: rgb(166, 168, 170);
+    font: bold 8pt Arial;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-info .badge {
+    background-color: #1e62d8;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+/* Styles for form elements */
+label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-control-label {
+    padding-left: 5px;
+}
+
+.btn-primary {
+    background-color: #1e62d8;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #13549d;
 }

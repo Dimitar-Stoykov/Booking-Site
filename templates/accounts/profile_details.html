@@ -47,9 +47,9 @@
             <div class="col-9">
                 <div class="card">
                     <div class="e-profile">
-                        <div class="profile-picture">
-                            <span>{{ object.profile_picture }}</span>
-                        </div>
+{#                        <div class="profile-picture">#}
+{#                            <img src="{{ object.profile_picture }}" alt="Profile Picture" class="rounded-image">#}
+{#                        </div>#}
                         <div class="profile-info">
                             <div>
                                 <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ object.full_name }}</h4>
@@ -79,32 +79,10 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
+
                                                         {{ form.as_p }}
                                                         {% csrf_token %}
-{#                                                        <label>Full Name</label>#}
-{#                                                        <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{#                                                <div class="col">#}
-{#                                                    <div class="form-group">#}
-{#                                                        <label>Username</label>#}
-{#                                                        <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                            <div class="row">#}
-{#                                                <div class="col">#}
-{#                                                    <div class="form-group">#}
-{#                                                        <label>Email</label>#}
-{#                                                        <input class="form-control" type="text" placeholder="user@example.com">#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                            <div class="row">#}
-{#                                                <div class="col mb-3">#}
-{#                                                    <div class="form-group">#}
-{#                                                        <label>About</label>#}
-{#                                                        <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>#}
+
                                                     </div>
                                                 </div>
                                             </div>

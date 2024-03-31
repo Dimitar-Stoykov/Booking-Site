@@ -2,6 +2,7 @@
 from django.contrib.auth import views as auth_views, logout
 from django.contrib.auth import mixins as auth_mixins
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
@@ -21,6 +22,13 @@ class BookingRegisterView(views.CreateView):
 class BookingLoginView(auth_views.LoginView):
     template_name = 'accounts/login.html'
     redirect_authenticated_user = True
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 class ProfileDetailView(auth_mixins.LoginRequiredMixin, views.UpdateView):

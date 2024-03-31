@@ -50,11 +50,6 @@ class Profile(models.Model):
         null=True,
     )
 
-    profile_picture = models.URLField(
-        blank=True,
-        null=True,
-    )
-
     user = models.OneToOneField(
         BookingUser,
         primary_key=True,

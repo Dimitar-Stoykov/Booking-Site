@@ -1,0 +1,61 @@
+/* Add custom styles for the profile details page */
+.container.profile-details {
+    margin-top: 90px; /* Adjust margin from the top */
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-details h1 {
+    margin-top: 0;
+    color: #1e62d8;
+}
+
+.profile-details h2 {
+    color: #1e62d8;
+}
+
+.profile-details p {
+    margin-bottom: 10px;
+}
+
+.profile-details .profile-picture {
+    max-width: 200px; /* Set max width for profile picture */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.profile-details .details-button {
+    background-color: #1e62d8;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profile-details .details-button:hover {
+    background-color: #13549d;
+}
+
+.profile-picture {
+    width: 200px; /* Set width for the profile picture */
+    height: 200px; /* Set height for the profile picture */
+    background-color: #ccc; /* Placeholder background color */
+    border-radius: 50%; /* Make it round */
+    margin-bottom: 20px; /* Adjust margin as needed */
+    /* Add other styles as needed */
+}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/profile_details.css' %}" />
+{% endblock %}
+
+{% block index_content %}
+<div class="container profile-details">
+    <h1>User Profile</h1>
+    <div>
+        <h2>Personal Information</h2>
+        <p><strong>First Name:</strong> {{ user_profile.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ user_profile.last_name }}</p>
+        <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
+        <!-- Add more fields as needed -->
+    </div>
+    <div>
+        <h2>Account Information</h2>
+        <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+        <p><strong>Date Joined:</strong> {{ user_profile.user.date_joined }}</p>
+        <!-- Add more account-related information here -->
+    </div>
+    <!-- Placeholder for profile picture -->
+    <div class="profile-picture">
+        <!-- Placeholder image or empty div -->
+    </div>
+    <!-- You can add more sections for additional profile details -->
+</div>
+</body>
+</html>
+{% endblock %}

@@ -1,21 +1,22 @@
+from django.contrib.auth import mixins as auth_mixins
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import generic as views
 
 
-class IndexViewUser(views.TemplateView):
-    template_name = 'index/../../templates/accounts/index_with_profile.html'
+# TODO: ListView for offers
+
+class IndexViewUser(auth_mixins.LoginRequiredMixin, views.TemplateView):
+    template_name = 'accounts/index_with_profile.html'
 
 
 class IndexView(views.TemplateView):
-    template_name = 'index/index.html'
+    template_user = 'accounts/index_with_profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return render(request, 'index/index.html', {})
+        else:
+            return render(request, self.template_user)
 
 
-# class IndexViewUser(views.TemplateView):
-#     template_name = 'index/index_with_profile.html'
-    # model = HttpResponse
-    #
-    # def get_queryset(self):
-    #     queryset = {}
-    #
-    #     return queryset

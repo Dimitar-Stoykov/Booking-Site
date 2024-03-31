@@ -1,8 +1,12 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views, logout
+from django.contrib.auth import mixins as auth_mixins
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
 from booking.accounts.forms import BookingUserCreationForm
+from booking.accounts.models import Profile
 
 
 class BookingRegisterView(views.CreateView):
@@ -13,25 +17,27 @@ class BookingRegisterView(views.CreateView):
         return reverse_lazy('index')
 
 
-
 class BookingLoginView(auth_views.LoginView):
-    pass
-    # template_name = ''
-    # redirect_authenticated_user = True
+    template_name = 'accounts/login.html'
+    redirect_authenticated_user = True
 
 
-class ProfileDetailView(views.DetailView):
-    pass
+class ProfileDetailView(auth_mixins.LoginRequiredMixin,views.DetailView):
+    queryset = Profile.objects.prefetch_related('user').all()
+    template_name = 'accounts/profile_details.html'
 
 
-class ProfileUpdateView(views.UpdateView):
-    pass
-
-
-class BookingDeleteView(views.DeleteView):
+class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     pass
 
 
-def sigout(request):
+class BookingDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     pass
+
+
+@login_required
+def signout(request):
+    logout(request)
+
+    return redirect('index')
 

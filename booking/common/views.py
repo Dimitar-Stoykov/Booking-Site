@@ -4,7 +4,7 @@ from django.views import generic as views
 
 
 class IndexViewUser(views.TemplateView):
-    template_name = 'index/index_with_profile.html'
+    template_name = 'index/../../templates/accounts/index_with_profile.html'
 
 
 class IndexView(views.TemplateView):

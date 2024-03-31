@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/register.css' %}" />
+{% endblock %}
+
+{% block index_content %}
+{#<div class="container register-form"> <!-- Add a custom class to the form container -->#}
+{#    <div class="booking-form">#}
+{#        <h2>Login</h2>#}
+{#        <form method="post" action="{% url 'signup' %}">#}
+{#            {% csrf_token %}#}
+{#            {{ form.as_p }}#}
+{#            <button type="submit" class="submit-btn">Login</button>#}
+{#        </form>#}
+{#    </div>#}
+{#</div>#}
+
+<form method="post" action="{% url 'signup' %}">
+  <div class="container">
+    {{ form.as_p }}
+    <button type="submit" class="registerbtn">Register</button>
+  </div>
+    {% csrf_token %}
+  <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+  </div>
+</form>
+{% endblock %}

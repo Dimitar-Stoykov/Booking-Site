@@ -1,155 +1,78 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link type="text/css" rel="stylesheet" href="{% static 'css/profile_details.css' %}" />
+        <link type="text/css" rel="stylesheet" href="{% static 'css/profile_details.css' %}" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block index_content %}
-{#<div class="container profile-details">#}
-{#    <h1>User Profile</h1>#}
-{#    <div>#}
-{#        <h2>Personal Information</h2>#}
-{#        <p><strong>First Name:</strong> {{ user_profile.first_name }}</p>#}
-{#        <p><strong>Last Name:</strong> {{ user_profile.last_name }}</p>#}
-{#        <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>#}
-{#        <!-- Add more fields as needed -->#}
-{#    </div>#}
-{#    <div>#}
-{#        <h2>Account Information</h2>#}
-{#        <p><strong>Email:</strong> {{ user_profile.user.email }}</p>#}
-{#        <p><strong>Date Joined:</strong> {{ user_profile.user.date_joined }}</p>#}
-{#        <!-- Add more account-related information here -->#}
-{#    </div>#}
-{#    <!-- Placeholder for profile picture -->#}
-{#    <div class="profile-picture">#}
-{#        <!-- Placeholder image or empty div -->#}
-{#    </div>#}
-{#    <!-- You can add more sections for additional profile details -->#}
-{#</div>#}
-
 
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <div class="card">
-                    <div class="e-navlist e-navlist--active-bg">
-                        <ul class="nav">
-                            <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-                            <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
-                        </ul>
-                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <div class="e-navlist e-navlist--active-bg">
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Booking History</span></a></li>
+                        <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>Delete Profile</span></a></li>
+                        <li class="nav-item"><a class="nav-link px-2" href="{% url 'password_change' pk=object.user.pk %}" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-9">
-                <div class="card">
-                    <div class="e-profile">
-{#                        <div class="profile-picture">#}
-{#                            <img src="{{ object.profile_picture }}" alt="Profile Picture" class="rounded-image">#}
-{#                        </div>#}
-                        <div class="profile-info">
-                            <div>
-                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ object.full_name }}</h4>
-                                <p class="mb-0">{{ object.user.email }}</p>
-                                <div class="text-muted"><small>Last login:{{ object.user.last_login }}</small></div>
-                            </div>
-                            <div>
-                                <span class="badge badge-secondary">{% if object.user.is_superuser %}
-                                administrator
-                                {% elif object.user.is_staff %}
-                                staff user
-                                {% else %}
-                                user
-                                {% endif %}
-                                </span>
-                                <div class="text-muted"><small>{{ object.user.date_joined }}</small></div>
-                            </div>
+        </div>
+        <div class="col-9">
+            <div class="card">
+                <div class="e-profile">
+                    <div class="profile-info">
+                        <div>
+                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ object.full_name }}</h4>
+                            <p class="mb-0">{{ object.user.email }}</p>
+                            <div class="text-muted"><small>Last login:{{ object.user.last_login }}</small></div>
                         </div>
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
-                        </ul>
-                        <div class="tab-content pt-3">
-                            <div class="tab-pane active">
-                                <form class="form" novalidate="" action="{% url 'profile_details' pk=object.user.pk %}" method="post">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-
-                                                        {{ form.as_p }}
-                                                        {% csrf_token %}
-
-                                                    </div>
+                        <div>
+                            <span class="badge badge-secondary">{% if object.user.is_superuser %}
+                            administrator
+                            {% elif object.user.is_staff %}
+                            staff user
+                            {% else %}
+                            user
+                            {% endif %}
+                            </span>
+                            <div class="text-muted"><small>{{ object.user.date_joined }}</small></div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                    </ul>
+                    <div class="tab-content pt-3">
+                        <div class="tab-pane active">
+                            <form class="form" novalidate="" action="{% url 'profile_details' pk=object.user.pk %}" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    {{ form.as_p }}
+                                                    {% csrf_token %}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6 mb-3">
-                                            <div class="mb-2"><b>Change Password</b></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Current Password</label>
-                                                        <input class="form-control" type="password" placeholder="••••••">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>New Password</label>
-                                                        <input class="form-control" type="password" placeholder="••••••">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                        <input class="form-control" type="password" placeholder="••••••"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                            <div class="mb-2"><b>Keeping in Touch</b></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label>Email Notifications</label>
-                                                    <div class="custom-controls-stacked px-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                            <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                        </div>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                            <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                        </div>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                            <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex justify-content-end">
+                                        <button class="btn btn-primary" type="submit">Save Changes</button>
                                     </div>
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-end">
-                                            <button class="btn btn-primary" type="submit">Save Changes</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}

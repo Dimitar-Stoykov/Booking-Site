@@ -17,3 +17,10 @@ class BookingChangeForm(auth_forms.UserChangeForm):
 
     class Meta(auth_forms.UserChangeForm.Meta):
         model = UserModel
+
+
+class CustomPasswordChangeForm(auth_forms.PasswordChangeForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'

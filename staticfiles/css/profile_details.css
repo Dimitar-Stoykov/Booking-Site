@@ -1,60 +1,46 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 80px 0 80px; /* Add top and bottom padding to push content down */
+    padding: 80px 0; /* Adjust top and bottom padding */
     background-color: #fafafa;
 }
+
 .container {
-    max-width: 1200px; /* Adjust max-width as needed */
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
+
 .row {
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
 }
+
 .col {
     flex: 0 0 100%;
     max-width: 100%;
     padding-right: 15px;
     padding-left: 15px;
 }
+
 .col-3 {
     flex: 0 0 25%;
     max-width: 25%;
 }
+
 .col-9 {
     flex: 0 0 75%;
     max-width: 75%;
 }
 
-/* Styles for cards and content */
 .card {
     background-color: #f8f8f8;
     border-radius: 20px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 30px;
-}
-
-.profile-picture {
-    width: 140px;
-    height: 140px;
-    background-color: rgb(233, 236, 239);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 20px;
-}
-
-.profile-picture span {
-    color: rgb(166, 168, 170);
-    font: bold 8pt Arial;
 }
 
 .profile-info {
@@ -71,17 +57,19 @@ body {
     border-radius: 20px;
 }
 
-/* Styles for form elements */
 label {
     font-weight: bold;
 }
 
 .form-control {
-    width: 100%;
+    width: calc(100% - 20px); /* Adjusted width to accommodate padding */
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+#id_date_of_birth {
+    width: calc(100% - 500px); /* Adjusted width for date picker */
 }
 
 .custom-control-label {
@@ -101,15 +89,4 @@ label {
     background-color: #13549d;
 }
 
-.profile-picture {
-    width: 200px; /* Adjust the size of the circle */
-    height: 200px; /* Adjust the size of the circle */
-    border-radius: 50%; /* Make it round */
-    overflow: hidden; /* Hide overflowing content */
-}
 
-.profile-picture img {
-    width: 100%; /* Ensure the image fills the container */
-    height: 100%; /* Ensure the image fills the container */
-    object-fit: cover; /* Maintain aspect ratio and cover container */
-}

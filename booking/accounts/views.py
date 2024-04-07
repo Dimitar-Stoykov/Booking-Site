@@ -1,13 +1,14 @@
-
-from django.contrib.auth import views as auth_views, logout
+from django.contrib import messages
+from django.contrib.auth import views as auth_views, logout, update_session_auth_hash
 from django.contrib.auth import mixins as auth_mixins
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
-
-from booking.accounts.forms import BookingUserCreationForm
+from django import forms
+from booking.accounts.forms import BookingUserCreationForm, CustomPasswordChangeForm
+from booking.accounts.mixins import OwnerRequiredMixin
 from booking.accounts.models import Profile
 
 
@@ -24,24 +25,47 @@ class BookingLoginView(auth_views.LoginView):
     redirect_authenticated_user = True
 
 
-class CustomPasswordChangeForm(PasswordChangeForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'date_of_birth', 'money')
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
 
 
-class ProfileDetailView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+class ProfileUpdateView(OwnerRequiredMixin, views.UpdateView):
     queryset = Profile.objects.prefetch_related('user').all()
     template_name = 'accounts/profile_details.html'
-    fields = ('first_name', 'last_name', 'date_of_birth', 'money')
+    # fields = ('first_name', 'last_name', 'date_of_birth', 'money')
+    # widgets = {
+    #     'date_of_birth': forms.DateInput(attrs={'class': 'form-control datepicker', 'type': 'date'}),
+    # }
+
+    form_class = ProfileUpdateForm
 
     def get_success_url(self):
         return reverse_lazy('profile_details', kwargs={'pk': self.object.pk})
 
 
-class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
-    pass
+class ProfilePasswordUpdateView(auth_views.PasswordChangeView):
+    template_name = 'accounts/profile_password.html'
+    form_class = CustomPasswordChangeForm
+
+    def get_success_url(self):
+        # Redirect to the same page
+        return self.request.path
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        messages.success(self.request, 'Your password has been changed successfully.')
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class BookingDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):

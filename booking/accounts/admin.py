@@ -10,7 +10,6 @@ UserModel = get_user_model()
 @admin.register(UserModel)
 class BookingUserAdmin(UserAdmin):
     model = UserModel
-    # add_form = AppUserCreationForm
     add_form = BookingUserCreationForm
     form = BookingChangeForm
 
@@ -34,3 +33,4 @@ class BookingUserAdmin(UserAdmin):
             },
         ),
     )
+

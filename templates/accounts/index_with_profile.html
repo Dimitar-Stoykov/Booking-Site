@@ -12,16 +12,18 @@
 
             <div class="col-md-8 col-md-offset-2 scrollable-content">
         {# TODO: make all hotel details #}
-                {% for _ in '123456' %}
+                {% for hotel in object_list %}
                 <div class="offer">
                     <div class="offer-img">
-                        <img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg" alt="Hotel Image">
+                        <img src="{{ hotel.hotel_picture }}" alt="Hotel Image">
                     </div>
+{#                    TODO: hotel rating and hotel AV price #}
+
                     <div class="offer-details">
-                        <h2>Hotel Name</h2>
-                        <p>Description of the hotel goes here.</p>
+                        <h2>{{ hotel.hotel_name }}</h2>
+                        <p>{{ hotel.description }}</p>
                         <p>Price: $XXX.XX</p>
-                        <p>Location: City, Country</p>
+                        <p>Location: {{ hotel.city }}, {{ hotel.location }}</p>
                         <p>Rating: 7.5</p>
                         <button class="details-button">Details</button>
                     </div>
@@ -36,8 +38,5 @@
     </div>
 
 
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 {% endblock %}

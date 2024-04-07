@@ -20,7 +20,7 @@
             {% if user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_staff %}
-                    <li><a href="#">Create Hotel</a></li>
+                    <li><a href="{% url 'create_hotel' %}">Create Hotel</a></li>
                 {% endif %}
                 <li><a href="{% url 'index_user' %}">Home <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">About</a></li>

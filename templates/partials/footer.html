@@ -1,53 +1,82 @@
-{#<footer class="footer">#}
-{#    <div class="footer" id="footer">#}
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col-md-6">#}
-{#                <p>&copy; 2024 Exotic Travel. All rights reserved.</p>#}
-{#            </div>#}
-{#            <div class="col-md-6 text-right">#}
-{#                <ul class="footer-nav">#}
-{#                    <li><a href="#">Terms of Service</a></li>#}
-{#                    <li><a href="#">Privacy Policy</a></li>#}
-{#                    <li><a href="#">Cookie Policy</a></li>#}
-{#                </ul>#}
+
+{#    <!-- Footer -->#}
+{#    <footer class="footer" id="footer">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-md-6">#}
+{#                    <p>&copy; 2024 Exotic Travel. All rights reserved.</p>#}
+{#                </div>#}
+{#                <div class="col-md-6 text-right">#}
+{#                    <ul class="footer-nav">#}
+{#                        <li><a href="#">Terms of Service</a></li>#}
+{#                        <li><a href="#">Privacy Policy</a></li>#}
+{#                        <li><a href="#">Cookie Policy</a></li>#}
+{#                    </ul>#}
+{#                </div>#}
 {#            </div>#}
 {#        </div>#}
-{#    </div>#}
-{#    </div>#}
-{#</footer>#}
+{#    </footer>#}
+{##}
+{#    <script>#}
+{#        var lastScrollTop = 0;#}
+{#        window.addEventListener("scroll", function() {#}
+{#            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;#}
+{#            var isAtBottom = currentScroll >= (document.documentElement.scrollHeight - window.innerHeight);#}
+{#            if (currentScroll > lastScrollTop && isAtBottom) {#}
+{#                document.getElementById("footer").style.transform = "translateY(0)"; // Show footer when scrolling down and at bottom#}
+{#            } else {#}
+{#                document.getElementById("footer").style.transform = "translateY(100%)"; // Hide footer otherwise#}
+{#            }#}
+{#            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling#}
+{#        }, false);#}
+{##}
+{#        // Initially hide the footer#}
+{#        document.getElementById("footer").style.transform = "translateY(100%)";#}
+{#    </script>#}
 
-    <!-- Footer -->
-    <footer class="footer" id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>&copy; 2024 Exotic Travel. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <ul class="footer-nav">
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                </div>
+
+
+<style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40; /* Change this to match your footer color */
+            color: #ffffff; /* Change this to match your footer text color */
+            padding: 20px 0;
+            text-align: center;
+        }
+</style>
+<footer class="footer bg-dark text-light py-4" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2024 Exotic Travel. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <ul class="list-unstyled footer-nav">
+                    <li class="d-inline-block mr-3"><a href="#" class="text-light">Terms of Service</a></li>
+                    <li class="d-inline-block mr-3"><a href="#" class="text-light">Privacy Policy</a></li>
+                    <li class="d-inline-block"><a href="#" class="text-light">Cookie Policy</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script>
-        var lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            var isAtBottom = currentScroll >= (document.documentElement.scrollHeight - window.innerHeight);
-            if (currentScroll > lastScrollTop && isAtBottom) {
-                document.getElementById("footer").style.transform = "translateY(0)"; // Show footer when scrolling down and at bottom
-            } else {
-                document.getElementById("footer").style.transform = "translateY(100%)"; // Hide footer otherwise
-            }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
-        }, false);
+<script>
+    var lastScrollTop = 0;
+    window.addEventListener("scroll", function() {
+        var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        var isAtBottom = currentScroll >= (document.documentElement.scrollHeight - window.innerHeight);
+        if (currentScroll > lastScrollTop && isAtBottom) {
+            document.getElementById("footer").style.transform = "translateY(0)"; // Show footer when scrolling down and at bottom
+        } else {
+            document.getElementById("footer").style.transform = "translateY(100%)"; // Hide footer otherwise
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    }, false);
 
-        // Initially hide the footer
-        document.getElementById("footer").style.transform = "translateY(100%)";
-    </script>
+    // Initially hide the footer
+    document.getElementById("footer").style.transform = "translateY(100%)";
+</script>

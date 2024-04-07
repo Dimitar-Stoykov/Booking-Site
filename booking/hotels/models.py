@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, RegexValidator
 from django.db import models
+from django.utils import timezone
 
 UserModel = get_user_model()
 
@@ -8,10 +9,15 @@ UserModel = get_user_model()
 class Hotel(models.Model):
     MAX_HOTEL_NAME_LENGTH = 30
     MIN_HOTEL_NAME_LENGTH = 5
+    MOBILE_PHONE_REGEX = RegexValidator(
+        regex=r'^\d{9,15}$',
+        message="Phone number must be entered in the format: '999999999'. Up to 15 digits allowed."
+    )
 
     hotel_name = models.CharField(
         max_length=MAX_HOTEL_NAME_LENGTH,
         validators=[MinLengthValidator(MIN_HOTEL_NAME_LENGTH),],
+        unique=True,
     )
 
     city = models.CharField(
@@ -22,9 +28,24 @@ class Hotel(models.Model):
 
     hotel_picture = models.URLField()
 
+    contact_number = models.CharField(
+        validators=[MOBILE_PHONE_REGEX],
+        max_length=15,
+        null=False,
+        blank=False,
+    )
+
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
+    )
+
+    created_by = models.ForeignKey(
+        UserModel,
+        on_delete=models.SET_NULL,
+        related_name='created_hotels',
+        null=True,
+        blank=True,
     )
 
     def __str__(self):

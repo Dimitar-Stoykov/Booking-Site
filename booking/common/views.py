@@ -3,10 +3,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import generic as views
 
+from booking.hotels.models import Hotel
+
 
 # TODO: ListView for offers
 
-class IndexViewUser(auth_mixins.LoginRequiredMixin, views.TemplateView):
+class IndexViewUser(auth_mixins.LoginRequiredMixin, views.ListView):
+    queryset = Hotel.objects.all().prefetch_related('rooms')
     template_name = 'accounts/index_with_profile.html'
 
 

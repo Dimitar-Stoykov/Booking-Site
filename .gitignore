@@ -3,3 +3,8 @@
 
 *.idea
 *__pycache__
+
+venv/Lib/site-packages/tzdata/
+
+*venv/Lib/site-packages/tzdata/
+

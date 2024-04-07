@@ -78,6 +78,7 @@ class BookingDeleteView(OwnerRequiredMixin, views.DeleteView):
 
 class BookingUserHistoryView(OwnerRequiredMixin, views.ListView):
     pass
+# TODO: Listing of Bookings 10 boots max
 
 
 @login_required

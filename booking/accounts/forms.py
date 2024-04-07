@@ -43,7 +43,7 @@ class DeleteProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserModel
-        fields = ['email', 'password']
+        fields = ('email', 'password')
 
     def clean_password(self):
         password = self.cleaned_data.get('password')

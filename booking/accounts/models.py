@@ -62,8 +62,6 @@ class Profile(models.Model):
         default=0,
     )
 
-    #TODO: ManyToMany field with Bookings
-
     @property
     def full_name(self):
         if self.first_name and self.last_name:

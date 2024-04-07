@@ -1,23 +1,32 @@
 from django.contrib import messages
-from django.contrib.auth import views as auth_views, logout, update_session_auth_hash
+from django.contrib.auth import views as auth_views, logout, update_session_auth_hash, get_user_model, login
 from django.contrib.auth import mixins as auth_mixins
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic as views
-from django import forms
-from booking.accounts.forms import BookingUserCreationForm, CustomPasswordChangeForm
+
+from booking.accounts.forms import BookingUserCreationForm, CustomPasswordChangeForm, DeleteProfileForm, \
+    ProfileUpdateForm
 from booking.accounts.mixins import OwnerRequiredMixin
 from booking.accounts.models import Profile
+
+UserModel = get_user_model()
 
 
 class BookingRegisterView(views.CreateView):
     template_name = 'accounts/signup.html'
     form_class = BookingUserCreationForm
 
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        login(self.request, form.instance)
+
+        return result
+
     def get_success_url(self):
-        return reverse_lazy('index')
+        return reverse_lazy('profile_details', kwargs={'pk': self.object.pk})
 
 
 class BookingLoginView(auth_views.LoginView):
@@ -25,23 +34,9 @@ class BookingLoginView(auth_views.LoginView):
     redirect_authenticated_user = True
 
 
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ('first_name', 'last_name', 'date_of_birth', 'money')
-        widgets = {
-            'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-        }
-
-
 class ProfileUpdateView(OwnerRequiredMixin, views.UpdateView):
     queryset = Profile.objects.prefetch_related('user').all()
     template_name = 'accounts/profile_details.html'
-    # fields = ('first_name', 'last_name', 'date_of_birth', 'money')
-    # widgets = {
-    #     'date_of_birth': forms.DateInput(attrs={'class': 'form-control datepicker', 'type': 'date'}),
-    # }
-
     form_class = ProfileUpdateForm
 
     def get_success_url(self):
@@ -68,7 +63,20 @@ class ProfilePasswordUpdateView(auth_views.PasswordChangeView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class BookingDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
+class BookingDeleteView(OwnerRequiredMixin, views.DeleteView):
+    model = UserModel
+    form_class = DeleteProfileForm
+    template_name = 'accounts/delete_profile.html'
+    success_url = reverse_lazy('index')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+
+        return kwargs
+
+
+class BookingUserHistoryView(OwnerRequiredMixin, views.ListView):
     pass
 
 

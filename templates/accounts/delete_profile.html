@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/delete_profile.css' %}" />
+{% endblock %}
+
+{% block index_content   %}
+<div class="form-frame">
+    <h1 class="form-title">Delete Profile</h1>
+    <p>Are you sure you want to delete your profile?</p>
+    <form id="delete-profile-form" action="{% url 'delete_profile' pk=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelDelete()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function cancelDelete() {
+    // Redirect to profile page or any other appropriate action
+    window.location.href = "{% url 'index' %}";
+}
+</script>
+{% endblock %}

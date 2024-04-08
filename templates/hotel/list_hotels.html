@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block extra_css %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
+<link type="text/css" rel="stylesheet" href="{% static 'css/hotel/hotel_list.css'%}" />
+{% endblock %}
+
+{% block index_content %}
+<body>
+    <h1>Hotel List</h1>
+
+    <!-- Search by hotel name -->
+    <form class="search-form" action="{% url 'list_hotel' %}" method="get">
+        <label for="search_name">Search by Hotel Name:</label>
+        <input type="text" id="search_name" name="search" placeholder="Enter hotel or user name...">
+        <button type="submit">Search</button>
+    </form>
+
+
+    <ul class="hotel-list">
+        {% for hotel in object_list %}
+        <li class="hotel-item">
+            <form class="hotel-form" action="#" method="post">
+                {% csrf_token %}
+                <button class="edit-button" type="submit">Edit</button>
+            </form>
+            <form class="hotel-form" action="#" method="post">
+                {% csrf_token %}
+                <button class="delete-button" type="submit">Delete</button>
+            </form>
+            <span class="hotel-name">{{ hotel.hotel_name }} --> {{ hotel.user }}</span>
+            <!-- Display other hotel details as needed -->
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}

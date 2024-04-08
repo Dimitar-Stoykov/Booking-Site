@@ -7,4 +7,5 @@ urlpatterns = [
     path('accounts/', include('booking.accounts.urls')),
     path('booking/', include('booking.bookings.urls')),
     path('hotels/', include('booking.hotels.urls')),
+    path('rooms/', include('booking.rooms.urls')),
 ]

@@ -11,7 +11,6 @@ class IndexViewUser(auth_mixins.LoginRequiredMixin, views.ListView):
     queryset = Hotel.objects.all().prefetch_related('rooms')
     template_name = 'accounts/index_with_profile.html'
 
-
 class IndexView(views.TemplateView):
     template_user = 'accounts/index_with_profile.html'
 

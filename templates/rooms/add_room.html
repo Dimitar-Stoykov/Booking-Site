@@ -1,40 +1,8 @@
-
-/*#room-form-container {*/
-/*    background-image: url('https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2EwMDItaXN3YW50b2EtNTAuanBn.jpg'); !* Specify the path to your image *!*/
-/*    background-size: cover; !* Cover the entire container *!*/
-/*    background-position: center; !* Center the background image *!*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    min-height: calc(100vh - 100px); !* Adjusted to accommodate the footer height *!*/
-/*    padding-bottom: 100px; !* Increased padding to create more space at the bottom *!*/
-/*}*/
-
-/*#room-form {*/
-/*    background-color: rgba(255, 255, 255, 0.8); !* Add a semi-transparent white background color for better readability *!*/
-/*    padding: 20px;*/
-/*    border-radius: 10px;*/
-/*    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);*/
-/*    width: 400px;*/
-/*}*/
-
-/*#room-form h1 {*/
-/*    text-align: center;*/
-/*    margin-bottom: 30px;*/
-/*}*/
-
-/*#room-form label {*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*#room-form .form-group {*/
-/*    margin-bottom: 20px;*/
-/*}*/
-
-/*#room-form .btn-primary {*/
-/*    width: 100%;*/
-/*}*/
-
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <style>
+    {#TODO: the styles are not applying when they are moved away so thats why they are here #}
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -105,3 +73,25 @@
             background-color: #1e62d8;
             color: #fff;
         }
+    </style>
+{% endblock %}
+
+{% block index_content %}
+    <body>
+        <div class="container">
+            <form id="room-form" action="{% url 'add_room' %}" method="post">
+                <h1>Create Offer</h1>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <div class="e-navlist e-navlist--active-bg">
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Edit Room</span></a></li>
+                    <li class="nav-item"><a class="nav-link px-2" href="#"><i class="fa fa-fw fa-th mr-1"></i><span>Delete Room</span></a></li>
+                    <li class="nav-item"><a class="nav-link px-2" href="#" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+{% endblock %}

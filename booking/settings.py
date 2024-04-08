@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'booking.bookings',
     'booking.hotels',
     'booking.common',
+    'booking.rooms',
 
 ]
 

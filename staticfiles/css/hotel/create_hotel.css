@@ -1,0 +1,37 @@
+#hotel-form-container {
+    background-image: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* Adjusted to accommodate the footer height */
+    padding-bottom: 100px; /* Increased padding to create more space at the bottom */
+}
+
+#hotel-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+#hotel-form h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#hotel-form label {
+    font-weight: bold;
+}
+
+#hotel-form .form-group {
+    margin-bottom: 20px;
+}
+
+#hotel-form .btn-primary {
+    width: 100%;
+}
+
+/* Style for the footer */
+
+

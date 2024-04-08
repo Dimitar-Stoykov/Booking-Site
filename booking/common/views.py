@@ -6,7 +6,6 @@ from django.views import generic as views
 from booking.hotels.models import Hotel
 
 
-# TODO: ListView for offers
 
 class IndexViewUser(auth_mixins.LoginRequiredMixin, views.ListView):
     queryset = Hotel.objects.all().prefetch_related('rooms')

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/hotel/create_hotel.css'%}" />
+
+<style>
+       .e-navlist {
+            background-color: #f8f8f8;
+            border-radius: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: absolute;
+            top: 60px;
+            right: 902px; /* Position the nav list to the right */
+            margin-top: 20px; /* Adjust margin to create space */
+        }
+
+        .e-navlist ul.nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .e-navlist ul.nav li.nav-item {
+            margin-bottom: 10px;
+        }
+
+        .e-navlist ul.nav li.nav-item a.nav-link {
+            display: block;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #1e62d8;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .e-navlist ul.nav li.nav-item a.nav-link:hover {
+            background-color: #1e62d8;
+            color: #fff;
+        }
+</style>
+{% endblock %}
+
+{% block index_content %}
+<body>
+
+<div id="hotel-form-container">
+    <form id="hotel-form"  action="{% url 'update_hotel' pk=object.pk %}" method="post">
+        <h1>Edit Hotel</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+</body>
+{% endblock %}
+

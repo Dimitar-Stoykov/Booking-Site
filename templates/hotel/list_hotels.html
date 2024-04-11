@@ -33,8 +33,9 @@
     <ul class="hotel-list">
         {% for hotel in object_list %}
         <li class="hotel-item">
-            <form class="hotel-form" action="#" method="post">
+            <form class="hotel-form" action="{% url 'update_hotel' pk=hotel.pk %}" method="post">
                 {% csrf_token %}
+
                 <button class="edit-button" type="submit">Edit</button>
             </form>
             <form class="hotel-form" action="{% url 'delete_hotel' pk=hotel.pk %}" method="post">

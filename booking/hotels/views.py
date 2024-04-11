@@ -44,8 +44,26 @@ class HotelStaffListView(StaffRequiredMixin, views.ListView):
         return queryset
 
 
-class HotelUpdateView(views.UpdateView):
-    pass
+class HotelUpdateView(StaffRequiredMixin, views.UpdateView):
+    template_name = 'hotel/update_hotel.html'
+    queryset = Hotel.objects.all().select_related('user')
+    form_class = HotelUpdateForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.get_object()
+
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the form with the instance data to the template
+        context['form'] = HotelUpdateForm(instance=self.get_object())
+        return context
+
+    def get_success_url(self):
+
+        return reverse_lazy('list_hotel')
 
 
 class HotelDeleteView(StaffRequiredMixin, views.DeleteView):

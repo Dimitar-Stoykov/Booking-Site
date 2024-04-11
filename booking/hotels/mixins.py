@@ -7,7 +7,7 @@ class StaffRequiredMixin:
 
             return redirect('login')
 
-        if not request.user.is_superuser or not request.user.is_staff:
+        if not (request.user.is_staff or request.user.is_superuser):
 
             return redirect('index_user')
 

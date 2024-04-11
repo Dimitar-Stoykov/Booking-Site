@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from django.shortcuts import redirect
 
 from booking.accounts.forms import BookingUserCreationForm, BookingChangeForm
 
@@ -16,6 +17,7 @@ class BookingUserAdmin(UserAdmin):
     list_display = ('pk', 'email', 'is_staff', 'is_superuser')
     search_fields = ('email',)
     ordering = ('pk',)
+    list_filter = ('is_staff', 'is_superuser')
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -33,4 +35,3 @@ class BookingUserAdmin(UserAdmin):
             },
         ),
     )
-

@@ -34,3 +34,11 @@
         margin-bottom: 10px;
     }
 }
+
+footer {
+    height: 100px; /* Adjust the height as needed */
+}
+
+body {
+    padding-bottom: 100px; /* Match the height of the footer */
+}

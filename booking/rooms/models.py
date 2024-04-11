@@ -39,6 +39,7 @@ class Room(models.Model):
     #     related_name='booked_rooms',
     # )
 
+
 class RoomPictures(models.Model):
 
     image = models.URLField()

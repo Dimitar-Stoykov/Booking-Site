@@ -1,4 +1,4 @@
-
+import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -16,7 +16,10 @@ SECRET_KEY = 'django-insecure-o++qfk(m_w594%x+2)cmt)2qq%%5fe(+&w@u0zfj$#@xo8*3yp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -103,7 +106,7 @@ if DEBUG:
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Sofia'
 
 USE_I18N = True
 
@@ -124,9 +127,11 @@ MEDIA_URL = "media/"
 
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
-STATICFILES_DIRS = (
+
+STATICFILES_DIRS = [
     BASE_DIR / 'staticfiles',
-)
+]
+
 
 AUTH_USER_MODEL = 'accounts.BookingUser'
 

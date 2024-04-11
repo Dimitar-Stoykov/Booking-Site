@@ -79,4 +79,9 @@
 
     // Initially hide the footer
     document.getElementById("footer").style.transform = "translateY(100%)";
+
+window.onload = function() {
+    var footerHeight = document.querySelector('footer').offsetHeight;
+    document.body.style.paddingBottom = footerHeight + 'px';
+};
 </script>

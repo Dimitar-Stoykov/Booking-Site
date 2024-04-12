@@ -83,13 +83,13 @@
                 <h1>Create Offer</h1>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </form>
             <div class="e-navlist e-navlist--active-bg">
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Edit Room</span></a></li>
-                    <li class="nav-item"><a class="nav-link px-2" href="#"><i class="fa fa-fw fa-th mr-1"></i><span>Delete Room</span></a></li>
-                    <li class="nav-item"><a class="nav-link px-2" href="#" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
+                    <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'choose_hotel' %}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Add Image</span></a></li>
+                    <li class="nav-item"><a class="nav-link px-2" href="#"><i class="fa fa-fw fa-th mr-1"></i><span>Edit Rooms</span></a></li>
+                    <li class="nav-item"><a class="nav-link px-2" href="#" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Add Picture</span></a></li>
                 </ul>
             </div>
         </div>

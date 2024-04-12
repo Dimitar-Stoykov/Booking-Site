@@ -10,9 +10,10 @@
 <div class="container register-form"> <!-- Add a custom class to the form container -->
     <div class="booking-form">
         <h2>Login</h2>
-        <form method="post" action="{% url 'login' %}">
+        <form method="post" action="{% url 'login' %}?next={{ next }}">
             {% csrf_token %}
             {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}">
             <button type="submit" class="submit-btn">Login</button>
         </form>
     </div>

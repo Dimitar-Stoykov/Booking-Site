@@ -1,7 +1,12 @@
 from django import forms
+from django.contrib.auth import get_user_model
+from django.forms import inlineformset_factory
 
 from booking.hotels.models import Hotel
-from booking.rooms.models import Room
+from booking.rooms.models import Room, RoomPictures
+
+
+UserModel = get_user_model()
 
 
 class RoomCreateForm(forms.ModelForm):
@@ -32,3 +37,27 @@ class RoomCreateForm(forms.ModelForm):
             self.add_error(None, 'A room with this number already exists for this hotel.')
 
         return cleaned_data
+
+
+class ChooseHotelForm(forms.Form):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['hotel'].queryset = Hotel.objects.filter(user=user)
+
+    hotel = forms.ModelChoiceField(queryset=Hotel.objects.none(), label='Select Hotel', widget=forms.Select(attrs={'class': 'form-control'}))
+
+
+class RoomPictureUploadForm(forms.ModelForm):
+    image = forms.URLField(label='Image', widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = RoomPictures
+        fields = ('image', 'room',)
+
+    def __init__(self, *args, hotel_id=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if hotel_id:
+            rooms = Room.objects.filter(hotel_id=hotel_id)
+            self.fields['room'].queryset = rooms
+            self.fields['room'].widget.attrs.update({'class': 'form-control'})

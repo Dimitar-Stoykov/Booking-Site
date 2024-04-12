@@ -12,7 +12,7 @@ class Hotel(models.Model):
     MIN_HOTEL_NAME_LENGTH = 5
     MOBILE_PHONE_REGEX = RegexValidator(
         regex=r'^\d{9,15}$',
-        message="Phone number must be entered in the format: '999999999'. Up to 15 digits allowed."
+        message="Phone number must be form: 9 Up to 15 digits allowed."
     )
 
     hotel_name = models.CharField(

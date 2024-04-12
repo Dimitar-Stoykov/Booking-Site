@@ -4,7 +4,10 @@ from django.db import models
 
 from booking.hotels.models import Hotel
 
+
 UserModel = get_user_model()
+
+
 class Room(models.Model):
 
     room_number = models.PositiveIntegerField(
@@ -38,7 +41,8 @@ class Room(models.Model):
     #     blank=True,
     #     related_name='booked_rooms',
     # )
-
+    def __str__(self):
+        return f"Room {self.room_number}"
 
 class RoomPictures(models.Model):
 

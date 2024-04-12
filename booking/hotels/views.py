@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth import mixins as auth_mixins
 from django.db.models import Q
-from django.shortcuts import redirect
+
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -42,6 +43,11 @@ class HotelStaffListView(StaffRequiredMixin, views.ListView):
             )
 
         return queryset
+
+
+class HotelDetailView(auth_mixins.LoginRequiredMixin, views.ListView):
+    pass
+    #TODO: show rooms and extra_description
 
 
 class HotelUpdateView(StaffRequiredMixin, views.UpdateView):

@@ -58,7 +58,7 @@
 <body>
 <div class="container">
     <h1>Choose Hotel</h1>
-    <form method="post" action="{% url 'choose_hotel' %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'choose_hotel_list' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Next</button>

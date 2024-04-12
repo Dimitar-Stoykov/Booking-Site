@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block extra_css %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/hotel/hotel_list.css'%}" />
+<link type="text/css" rel="stylesheet" href="{% static 'css/rooms/room_list.css'%}" />
+{% endblock %}
+
+{% block index_content %}
+<body>
+    <div class="container">
+        <h1>Room List</h1>
+
+        <!-- Search by hotel name -->
+        <form class="search-form" action="{% url 'room_list' pk=hotel_id %}" method="get">
+            <label for="search_name">Search by Hotel Name:</label>
+            <input type="text" id="search_name" name="search" placeholder="Enter room number...">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="success-messages-container">
+            {% if messages %}
+                <!-- If there are messages, display them in a list -->
+                <ul class="messages">
+                    {% for message in messages %}
+                        <!-- Iterate over each message and display it -->
+                        <li><h4><strong>{{ message }}</strong></h4></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <ul class="hotel-list">
+            {% for room in object_list %}
+                <li class="hotel-item">
+                    <form class="hotel-form" action="#" method="post">
+                        {% csrf_token %}
+                        <button class="edit-button" type="submit">Show/Edit room photos</button>
+                    </form>
+                    <form class="hotel-form" action="#" method="post">
+                        {% csrf_token %}
+                        <button class="delete-button" type="submit" onclick="return confirmDelete('{{ room.room_number }}')">Delete Room</button>
+                    </form>
+
+                    <span class="hotel-name"><strong>Room:</strong> {{ room.room_number }} --> {{ room.hotel }}</span>
+                    <!-- Display other hotel details as needed -->
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        function confirmDelete(hotelName, hotelId) {
+            if (confirm(`Are you sure you want to delete the room '${hotelName}'?`)) {
+                // Make an AJAX request to delete the hotel
+                fetch(`/hotels/delete/${hotelId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Display success message
+                        showMessage(`Hotel '${hotelName}' was deleted successfully.`, 'success');
+                        // Remove the hotel item from the list
+                        const hotelItem = document.querySelector(`#hotel-${hotelId}`);
+                        if (hotelItem) {
+                            hotelItem.remove();
+                        }
+                    } else {
+                        // Display error message
+                        showMessage('An error occurred while deleting the hotel.', 'error');
+                    }
+                })
+                .catch(error => {
+                    // Display error message
+                    showMessage('An error occurred while deleting the hotel.', 'error');
+                });
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</body>
+{% endblock %}

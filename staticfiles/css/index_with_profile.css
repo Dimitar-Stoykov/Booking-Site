@@ -40,7 +40,7 @@
     background-color: #1e62d8; /* Button background color */
     color: #fff; /* Button text color */
     border: none; /* Remove button border */
-    padding: 10px 20px; /* Button padding */
+    padding: 10px 20px; /* Button paddi ng */
     border-radius: 20px; /* Button border radius */
     font-size: 16px; /* Button font size */
     cursor: pointer; /* Add pointer cursor */
@@ -61,4 +61,53 @@
     align-items: center;
 }
 
+
+
+    .custom-searchbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+      margin-bottom: 40px;
+      background-image: url("https://media.istockphoto.com/id/1125728849/photo/beach-background-with-palm-tree-tropical-beach-palm-leafs.webp?b=1&s=170667a&w=0&k=20&c=_1JFXAF4rMUgZAX6IH5bapJG74LVc1FSt5X9toFyCfg="); /* Add background color */
+      padding: 20px; /* Adjust padding */
+      border-radius: 10px; /* Add border radius */
+      max-width: 800px; /* Limit the width of the search bar */
+      width: 100%; /* Make the search bar fill the available space */
+      margin-left: auto; /* Center the search bar horizontally */
+      margin-right: auto; /* Center the search bar horizontally */
+    }
+
+    .custom-searchbar form {
+      display: flex;
+    }
+
+    .custom-searchbar input,
+    .custom-searchbar select,
+    .custom-searchbar button {
+      margin-right: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ced4da;
+    }
+
+    .custom-searchbar button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .custom-searchbar button:hover {
+      background-color: #0056b3;
+    }
+
+    .scrollable-content {
+      height: 100%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 

@@ -1,28 +1,56 @@
 {% extends 'base.html' %}
+{% load hotels_tags %}
 {% load static %}
+
 {% block extra_css %}
     <link type="text/css" rel="stylesheet" href="{% static 'css/index_with_profile.css' %}" />
 
 {% endblock %}
+
 {% block index_content %}
 
-        <div class="container">
+  <div class="custom-searchbar">
+    <form action="{% url 'index_user' %}" method="get">
+        <div class="search-field">
+            <input type="text" id="search_name" name="search" placeholder="Enter a destination...">
+        </div>
+        <div class="search-field">
+            <input type="date" id="check_in" name="check_in" placeholder="Check-in">
+        </div>
+        <div class="search-field">
+            <input type="date" id="check_out" name="check_out" placeholder="Check-out">
+        </div>
+        <div class="search-field">
+            <select id="adults" name="adults">
+                <option value="1">1 Person</option>
+                <option value="2">2 People</option>
+                <option value="3">3 People</option>
+                <option value="4">4 People</option>
+                <option value="5">5 People</option>
+            </select>
+        </div>
+        <div class="search-field">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+</div>
 
-        <div class="row">
-
-            <div class="col-md-8 col-md-offset-2 scrollable-content">
-        {# TODO: make all hotel details #}
-                {% for hotel in object_list %}
+        <div class="col-md-8 col-md-offset-2 scrollable-content">
+            {# TODO: make all hotel details #}
+            {% for hotel in object_list %}
                 <div class="offer">
                     <div class="offer-img">
                         <img src="{{ hotel.hotel_picture }}" alt="Hotel Image">
                     </div>
-{#                    TODO: hotel rating and hotel AV price #}
-
+                    {# TODO: hotel rating and hotel AV price #}
                     <div class="offer-details">
                         <h2>{{ hotel.hotel_name }}</h2>
                         <p>{{ hotel.description }}</p>
-                        <p>Price: $XXX.XXBGN</p>
+                        {%  if hotel|min_price %}
+                        <p>Price: From {{ hotel|min_price }} BGN to {{ hotel|max_price }} BGN</p>
+                        {% else %}
+                        <p>Price: Not avaiable </p>
+                        {% endif %}
                         <p>Location: {{ hotel.city }}, {{ hotel.location }}</p>
                         <p>Rating: 7.5</p>
                         <button class="details-button">Details</button>
@@ -30,13 +58,25 @@
                 </div>
 
                 <!-- Add more offers here as needed -->
+            {% empty %}
+
+                <h1>No Hotels available</h1>
             {% endfor %}
-            </div>
-
-
         </div>
     </div>
+</div>
 
+        <script>
+      flatpickr(".datepicker",
+      {});
 
+    </script>
+    <script>
+      const choices = new Choices('[data-trigger]',
+      {
+        searchEnabled: false,
+        itemSelectText: '',
+      });
 
+    </script>
 {% endblock %}

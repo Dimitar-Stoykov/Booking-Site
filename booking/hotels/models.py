@@ -31,6 +31,7 @@ class Hotel(models.Model):
     location = models.CharField(
         max_length=MAX_LOCATION_LENGTH,
         validators=[MinLengthValidator(MIN_LOCATION_LENGTH),],
+        error_messages={'min_length': f"Location must be at least {MIN_LOCATION_LENGTH} characters long."}
     )
 
     extra_description = models.TextField()

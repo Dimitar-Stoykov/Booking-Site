@@ -11,7 +11,7 @@ UserModel = get_user_model()
 class HotelBaseForm(forms.ModelForm):
     class Meta:
         model = Hotel
-        fields = ('hotel_name', 'city', 'location', 'hotel_picture', 'contact_number', 'user')
+        fields = ('hotel_name', 'city', 'location','extra_description', 'hotel_picture', 'contact_number', 'user', )
 
 
 class HotelCreationForm(HotelBaseForm):
@@ -23,6 +23,7 @@ class HotelCreationForm(HotelBaseForm):
         self.fields['hotel_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter hotel name'})
         self.fields['city'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter city'})
         self.fields['location'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter location'})
+        self.fields['extra_description'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter hotel amenities'})
         self.fields['hotel_picture'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter hotel picture URL'})
         self.fields['contact_number'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter contact number'})
         self.fields['user'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Start typing to search for a user', 'id': 'user-search'})

@@ -10,6 +10,9 @@ UserModel = get_user_model()
 class Hotel(models.Model):
     MAX_HOTEL_NAME_LENGTH = 30
     MIN_HOTEL_NAME_LENGTH = 5
+    MIN_LOCATION_LENGTH = 10
+    MAX_LOCATION_LENGTH = 100
+
     MOBILE_PHONE_REGEX = RegexValidator(
         regex=r'^\d{9,15}$',
         message="Phone number must be form: 9 Up to 15 digits allowed."
@@ -25,7 +28,12 @@ class Hotel(models.Model):
         max_length=40,
     )
 
-    location = models.TextField()
+    location = models.CharField(
+        max_length=MAX_LOCATION_LENGTH,
+        validators=[MinLengthValidator(MIN_LOCATION_LENGTH),],
+    )
+
+    extra_description = models.TextField()
 
     hotel_picture = models.URLField()
 
@@ -44,74 +52,13 @@ class Hotel(models.Model):
     created_by = models.ForeignKey(
         UserModel,
         on_delete=models.SET_NULL,
-        related_name='created_hotels',
+        related_name='hotels',
         null=True,
         blank=True,
     )
 
     def __str__(self):
         return self.hotel_name
-
-
-# class Room(models.Model):
-#
-#     room_number = models.PositiveIntegerField(
-#         null=False,
-#         blank=False,
-#     )
-#
-#
-#     price_per_night = models.DecimalField(
-#         decimal_places=2,
-#         max_digits=10,
-#         null=False,
-#         blank=False,
-#     )
-#
-#     capacity = models.PositiveIntegerField(
-#         null=False,
-#         blank=False,
-#     )
-#
-#     hotel = models.ForeignKey(
-#         Hotel,
-#         on_delete=models.CASCADE,
-#         related_name='rooms',
-#     )
-#     # TODO: check it is unnessesary when creating booking
-#     # booked_by = models.ForeignKey(
-#     #     UserModel,
-#     #     on_delete=models.SET_NULL,
-#     #     null=True,
-#     #     blank=True,
-#     #     related_name='booked_rooms',
-#     # )
-#
-# class RoomPictures(models.Model):
-#
-#     image = models.URLField()
-#
-#     room = models.ForeignKey(
-#         Room,
-#         on_delete=models.CASCADE,
-#         related_name='pictures',
-#     )
-#
-#
-# class Booking(models.Model):
-#     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-#     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-#     start_date = models.DateField()
-#     end_date = models.DateField()
-#
-#     def save(self, *args, **kwargs):
-#
-#         if Booking.objects.filter(room=self.room, start_date__lte=self.end_date, end_date__gte=self.start_date).exists():
-#             # If the room is already booked for any overlapping period, raise ValidationError
-#             raise ValidationError('This room is already booked for the specified period.')
-#         # If the room is available, save the Booking instance
-#         super().save(*args, **kwargs)
-
 
 
 

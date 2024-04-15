@@ -17,7 +17,6 @@ from booking.rooms.models import Room, RoomPictures
 class RoomCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
     template_name = 'rooms/add_room.html'
     form_class = RoomCreateForm
-    # TODO: redirect to created room ?
 
     def get_success_url(self):
         return reverse_lazy('add_room')
@@ -190,7 +189,7 @@ class PictureListView(RoomOwnerRequiredMixin, views.ListView):
         return HttpResponseRedirect(self.request.path_info)
 
 
-class PictureDeleteView(RoomOwnerRequiredMixin, views.DeleteView):
+class PictureDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = RoomPictures
 
     def get_success_url(self):

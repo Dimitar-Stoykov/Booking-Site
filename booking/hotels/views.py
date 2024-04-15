@@ -55,11 +55,11 @@ class HotelUpdateView(StaffRequiredMixin, views.UpdateView):
     queryset = Hotel.objects.all().select_related('user')
     form_class = HotelUpdateForm
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.get_object()
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, f"Hotel {self.object} was updated successfully.")
 
-        return kwargs
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

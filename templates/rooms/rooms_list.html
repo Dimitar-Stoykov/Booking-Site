@@ -4,6 +4,7 @@
 {% block extra_css %}
 <link type="text/css" rel="stylesheet" href="{% static 'css/hotel/hotel_list.css'%}" />
 <link type="text/css" rel="stylesheet" href="{% static 'css/rooms/room_list.css'%}" />
+
 {% endblock %}
 
 {% block index_content %}
@@ -33,18 +34,26 @@
         <ul class="hotel-list">
             {% for room in object_list %}
                 <li class="hotel-item">
-                    <form class="hotel-form" action="#" method="post">
+                    <form class="hotel-form" action="{% url 'room_pictures' pk=room.pk %}" method="post">
                         {% csrf_token %}
                         <button class="edit-button" type="submit">Show/Edit room photos</button>
                     </form>
-                    <form class="hotel-form" action="#" method="post">
+
+                    <form class="hotel-form" action="{% url 'delete_room' pk=room.pk %}" method="post">
                         {% csrf_token %}
                         <button class="delete-button" type="submit" onclick="return confirmDelete('{{ room.room_number }}')">Delete Room</button>
                     </form>
 
-                    <span class="hotel-name"><strong>Room:</strong> {{ room.room_number }} --> {{ room.hotel }}</span>
+                    <form class="hotel-form" action="{% url 'update_room' pk=room.pk %}" method="post">
+                        {% csrf_token %}
+                        <button class="edit-button" type="submit">Update Room</button>
+                    </form>
+                    <span class="hotel-name"><strong>Room:</strong> {{ room.room_number }} | {{ room.hotel }} |
+                        <strong>Price:</strong> {{ room.price_per_night }} BGN | <strong>Pictures:</strong> {{ room.pictures.count }}</span>
                     <!-- Display other hotel details as needed -->
                 </li>
+            {% empty %}
+                <h1>There is no rooms created</h1>
             {% endfor %}
         </ul>
     </div>

@@ -1,20 +1,15 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.forms import inlineformset_factory
 
 from booking.hotels.models import Hotel
+from booking.rooms.mixins import ReadOnlyMixin
 from booking.rooms.models import Room, RoomPictures
 
 
 UserModel = get_user_model()
 
 
-class RoomCreateForm(forms.ModelForm):
-    def __init__(self, *args, user=None, **kwargs):
-        self.user = user
-        super(RoomCreateForm, self).__init__(*args, **kwargs)
-        self.fields['hotel'].queryset = Hotel.objects.filter(user=self.user)
-
+class RoomBaseForm(forms.ModelForm):
     hotel = forms.ModelChoiceField(queryset=Hotel.objects.none(), widget=forms.Select(
         attrs={'class': 'form-control', 'placeholder': 'Select a hotel'}))
 
@@ -28,12 +23,38 @@ class RoomCreateForm(forms.ModelForm):
             'capacity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter capacity'}),
         }
 
+
+class RoomCreateForm(RoomBaseForm):
+    def __init__(self, *args, user=None, **kwargs):
+        super(RoomCreateForm, self).__init__(*args, **kwargs)
+        self.fields['hotel'].queryset = Hotel.objects.filter(user=user)
+
     def clean(self):
         cleaned_data = super().clean()
         room_number = cleaned_data.get("room_number")
         hotel = cleaned_data.get("hotel")
 
         if Room.objects.filter(hotel=hotel, room_number=room_number).exists():
+            self.add_error(None, 'A room with this number already exists for this hotel.')
+
+        return cleaned_data
+
+
+class RoomUpdateForm(ReadOnlyMixin, RoomBaseForm):
+    readonly_fields = ('room_number', 'hotel',)
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        super(RoomUpdateForm, self).__init__(*args, **kwargs)
+        if instance:
+            self.fields['hotel'].queryset = Hotel.objects.filter(pk=instance.hotel.pk)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        room_number = cleaned_data.get("room_number")
+        hotel = cleaned_data.get("hotel")
+
+        if self.instance and Room.objects.filter(hotel=hotel, room_number=room_number).exclude(pk=self.instance.pk).exists():
             self.add_error(None, 'A room with this number already exists for this hotel.')
 
         return cleaned_data
@@ -61,3 +82,4 @@ class RoomPictureUploadForm(forms.ModelForm):
             rooms = Room.objects.filter(hotel_id=hotel_id)
             self.fields['room'].queryset = rooms
             self.fields['room'].widget.attrs.update({'class': 'form-control'})
+

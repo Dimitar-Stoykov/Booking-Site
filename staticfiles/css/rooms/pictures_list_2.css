@@ -1,0 +1,102 @@
+.container.room-container {
+    max-width: 600px; /* Set the maximum width to 600px */
+    margin: 80px auto; /* Center the container */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.picture-list {
+    list-style: none;
+    padding: 0;
+}
+
+.picture-item {
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensure all content is contained within the box */
+}
+
+.picture-card {
+    position: relative;
+    border-radius: 5px;
+}
+
+.room-picture {
+    width: 100%;
+    object-fit: cover; /* Maintain aspect ratio and fill container */
+}
+
+.picture-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for details */
+    color: #fff;
+}
+
+.btn-delete {
+    position: absolute;
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
+    z-index: 1; /* Ensure delete button appears above the picture */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .btn {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .btn:hover {
+    background-color: #0056b3;
+}
+
+.e-navlist {
+    background-color: rgba(255, 255, 255, 0.8); /* Set background color with transparency */
+    border-radius: 10px; /* Apply border radius */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    padding: 20px; /* Add padding */
+    position: absolute;
+    top: 60px;
+    right: 1001px;
+    margin-top: 22px;
+}
+
+.e-navlist ul.nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.e-navlist ul.nav li.nav-item {
+    margin-bottom: 10px;
+}
+
+.e-navlist ul.nav li.nav-item a.nav-link {
+    display: block;
+    padding: 10px 20px;
+    background-color: #fff; /* Set background color */
+    color: #1e62d8; /* Set text color */
+    border-radius: 20px; /* Apply border radius */
+    transition: all 0.3s ease;
+}
+
+.e-navlist ul.nav li.nav-item a.nav-link:hover {
+    background-color: #1e62d8; /* Change background color on hover */
+    color: #fff; /* Change text color on hover */
+}

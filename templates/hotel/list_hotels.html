@@ -14,7 +14,7 @@
     <!-- Search by hotel name -->
     <form class="search-form" action="{% url 'list_hotel' %}" method="get">
         <label for="search_name">Search by Hotel Name:</label>
-        <input type="text" id="search_name" name="search" placeholder="Enter hotel or user name...">
+        <input type="text" id="search_name" name="search" placeholder="Enter hotel or user email...">
         <button type="submit">Search</button>
     </form>
 
@@ -46,6 +46,8 @@
             <span class="hotel-name"><strong>Hotel:</strong> {{ hotel.hotel_name }} --> {{ hotel.user }}</span>
             <!-- Display other hotel details as needed -->
         </li>
+         {% empty %}
+            <h1>There is no Hotels created </h1>
         {% endfor %}
     </ul>
 

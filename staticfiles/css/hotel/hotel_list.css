@@ -81,3 +81,21 @@ body {
 .hotel-item:last-child {
     margin-bottom: 300px; /* Adjust the margin-bottom value as needed */
 }
+
+/*new styles for the button check it if there is a problem*/
+
+button {
+    padding: 10px 15px; /* Adjust padding to make buttons smaller */
+    font-size: 14px; /* Adjust font size for buttons */
+}
+
+/* Adjust alignment for forms */
+.hotel-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Add margin between hotel items */
+}
+
+.hotel-form {
+    margin-right: 10px; /* Add margin between forms */
+}

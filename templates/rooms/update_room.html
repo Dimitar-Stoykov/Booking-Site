@@ -79,19 +79,13 @@
 {% block index_content %}
     <body>
         <div class="container">
-            <form id="room-form" action="{% url 'add_room' %}" method="post">
-                <h1>Create Offer</h1>
+            <form id="room-form" action="{% url 'update_room' pk=object.pk %}" method="post">
+                <h1>Update</h1>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
-            <div class="e-navlist e-navlist--active-bg">
-                <ul class="nav">
-                    <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'choose_hotel' %}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Add Image</span></a></li>
-                    <li class="nav-item"><a class="nav-link px-2" href="{% url 'choose_hotel_list' %}"><i class="fa fa-fw fa-th mr-1"></i><span>Edit Rooms</span></a></li>
-{#                    <li class="nav-item"><a class="nav-link px-2" href="#" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Add Picture</span></a></li>#}
-                </ul>
-            </div>
+
         </div>
     </body>
 {% endblock %}

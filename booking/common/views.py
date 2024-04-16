@@ -6,10 +6,11 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views import generic as views
 
+from booking.common.mixins import GetContextMixin
 from booking.hotels.models import Hotel
 
 
-class IndexViewUser(auth_mixins.LoginRequiredMixin, views.ListView):
+class IndexViewUser(auth_mixins.LoginRequiredMixin, GetContextMixin,  views.ListView):
     queryset = Hotel.objects.all().prefetch_related('rooms')
     template_name = 'accounts/index_with_profile.html'
 

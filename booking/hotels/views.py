@@ -2,10 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import mixins as auth_mixins
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import generic as views
 
+from booking.common.mixins import GetContextMixin
 from booking.hotels.forms import HotelCreationForm, HotelUpdateForm
 from booking.hotels.mixins import StaffRequiredMixin
 from booking.hotels.models import Hotel
@@ -19,7 +22,7 @@ class HotelCreateView(StaffRequiredMixin, views.CreateView):
     template_name = 'hotel/create_hotel.html'
 
     def get_success_url(self):
-        return reverse_lazy('index_user')
+        return reverse_lazy('create_hotel')
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -45,9 +48,31 @@ class HotelStaffListView(StaffRequiredMixin, views.ListView):
         return queryset
 
 
-class HotelDetailView(auth_mixins.LoginRequiredMixin, views.ListView):
-    pass
-    #TODO: show rooms and extra_description
+class HotelDetailView(auth_mixins.LoginRequiredMixin, GetContextMixin,  views.ListView):
+    template_name = 'hotel/hotel_details_list.html'
+    paginate_by = 1
+
+    def get_queryset(self):
+        hotel_pk = self.kwargs.get('pk')
+
+        hotel = get_object_or_404(Hotel, pk=hotel_pk)
+
+        rooms_queryset = hotel.rooms.all()
+
+        check_in_date = self.request.GET.get('check_in', None)
+        check_out_date = self.request.GET.get('check_out', None)
+        adults = self.request.GET.get('adults', None)
+
+        if check_in_date and check_out_date:
+            check_in = timezone.datetime.strptime(check_in_date, '%Y-%m-%d').date()
+            check_out = timezone.datetime.strptime(check_out_date, '%Y-%m-%d').date()
+            rooms_queryset = rooms_queryset.exclude(booked__check_in__lt=check_out, booked__check_out__gt=check_in)
+
+        if adults:
+            adults_int = int(adults)
+            rooms_queryset = rooms_queryset.filter(capacity__gte=adults_int)
+
+        return rooms_queryset
 
 
 class HotelUpdateView(StaffRequiredMixin, views.UpdateView):

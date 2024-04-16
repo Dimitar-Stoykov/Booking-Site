@@ -53,7 +53,9 @@
                         {% endif %}
                         <p>Location: {{ hotel.city }}, {{ hotel.location }}</p>
                         <p>Rating: 7.5</p>
-                        <button class="details-button">Details</button>
+                        <button class="details-button">
+                            <a href="{% url 'details_hotel' pk=hotel.pk %}?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}" style="color: inherit; text-decoration: none;">Details</a>
+                        </button>
                     </div>
                 </div>
 
@@ -63,20 +65,36 @@
                 <h1>No Hotels available</h1>
             {% endfor %}
         </div>
-    </div>
-</div>
 
-        <script>
-      flatpickr(".datepicker",
-      {});
 
-    </script>
-    <script>
-      const choices = new Choices('[data-trigger]',
-      {
-        searchEnabled: false,
-        itemSelectText: '',
-      });
+<script>
+const today = new Date().toISOString().split('T')[0]; // Get today's date in the correct format
+const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]; // Get tomorrow's date
 
-    </script>
+document.getElementById('check_in').setAttribute('min', today); // Set min attribute of check_in input to today
+document.getElementById('check_out').setAttribute('min', tomorrow); // Set min attribute of check_out input to tomorrow
+
+flatpickr('#check_in', {
+    dateFormat: "Y-m-d",
+    minDate: today, // Set minDate of check_in input to today
+    disable: [
+        function(date) {
+            // Disable all dates before today
+            return date < new Date();
+        }
+    ]
+});
+
+flatpickr('#check_out', {
+    dateFormat: "Y-m-d",
+    minDate: tomorrow, // Set minDate of check_out input to tomorrow
+    disable: [
+        function(date) {
+            // Disable all dates before tomorrow
+            return date < new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        }
+    ]
+});
+
+</script>
 {% endblock %}

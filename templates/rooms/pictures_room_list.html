@@ -21,10 +21,12 @@
                         <div class="picture-details">
                             <p><strong>Room:</strong> {{ picture.room }}</p>
                             <!-- Add any other picture details here -->
+                            {% if is_owner %}
                             <form action="{% url 'delete_picture' pk=picture.pk %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
+                            {% endif %}
                         </div>
                     </div>
                 </li>
@@ -33,12 +35,17 @@
                 <h2>No pictures available for this room</h2>
             {% endfor %}
         </ul>
-
+            {% if hotel_id%}
             <div class="e-navlist e-navlist--active-bg">
                     <ul class="nav">
+                        {% if is_owner %}
                         <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'room_list' pk=hotel_id %}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Rooms List</span></a></li>
+                        {% endif %}
+                            <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'details_hotel' pk=hotel_id %}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Hotel Details</span></a></li>
                     </ul>
-        </div>
+            </div>
+            {% endif %}
+
         {% if object_list %}
         <div class="pagination">
             <span class="step-links">

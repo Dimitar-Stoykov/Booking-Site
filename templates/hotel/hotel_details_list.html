@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block extra_css %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/hotel/hotel_details.css' %}" >
+{#<link type="text/css" rel="stylesheet" href="{% static 'css/rooms/pictures_list_2.css' %}" >#}
+{% endblock %}
+
+{% block index_content %}
+<body>
+    <div class="container room-container">
+        <h1>Rooms</h1>
+
+        <ul class="picture-list">
+            {% for room in object_list %}
+                <li class="picture-item">
+                    <div class="picture-card">
+                        {% if room.pictures.first %}
+                            <img src="{{ room.pictures.first.image }}" alt="Room Picture" class="room-picture">
+                        {% else %}
+                            <img src="https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png" alt="Room Picture" class="room-picture" style="width: auto; height: 150px;">
+                        {% endif %}
+                        <div class="picture-details">
+                            <p><strong>Room:</strong> {{ room.room_number }}</p>
+                            <p><strong>Price:</strong> {{ room.price_per_night }}BGN</p>
+                            <!-- Add any other room details here -->
+                            <form action="{% url 'room_pictures' pk=room.id %}" method="get">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-delete">Room Photos</button>
+                            </form>
+                             <form action="#" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-book">Book Room</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            {% empty %}
+                <h2>No rooms available</h2>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}&page={{ page_obj.previous_page_number }}" class="btn btn-pagination">Previous</a>
+                {% endif %}
+                <span class="current-page">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}&page={{ page_obj.next_page_number }}" class="btn btn-pagination">Next</a>
+                {% else %}
+                    <a href="?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}" class="btn btn-pagination">First</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="e-navlist e-navlist--active-bg">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'index_user' %}?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }} ">
+                    <i class="fa fa-fw fa-bar-chart mr-1"></i>
+                    <span>Back to Hotels</span></a></li>
+            </ul>
+        </div>
+
+        <div class="hotel-extra-description">
+            <!-- Add hotel's extra description here -->
+            <p><strong>{{ hotel.extra_description|linebreaks }}</strong>></p>
+            <p></p>
+        </div>
+    </div>
+</body>
+{% endblock %}

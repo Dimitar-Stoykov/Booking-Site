@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from booking.hotels.views import HotelCreateView, HotelStaffListView, HotelDeleteView, HotelUpdateView
+from booking.hotels.views import HotelCreateView, HotelStaffListView, HotelDeleteView, HotelUpdateView, HotelDetailView
 
 urlpatterns = (
     path('create/', HotelCreateView.as_view(), name='create_hotel'),
@@ -8,6 +8,7 @@ urlpatterns = (
     path('<int:pk>/', include([
         path('delete/', HotelDeleteView.as_view(), name='delete_hotel'),
         path('update/', HotelUpdateView.as_view(), name='update_hotel'),
+        path('details/', HotelDetailView.as_view(), name='details_hotel'),
     ])),
 
 )

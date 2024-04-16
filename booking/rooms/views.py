@@ -10,7 +10,7 @@ from django.views import generic as views
 
 
 from booking.rooms.forms import RoomCreateForm, RoomPictureUploadForm, ChooseHotelForm, RoomUpdateForm
-from booking.rooms.mixins import GetHotelIdMixin, HotelOwnerRequiredMixin, RoomOwnerRequiredMixin
+from booking.rooms.mixins import HotelOwnerRequiredMixin, RoomOwnerRequiredMixin, DispatchHotelIdMixin
 from booking.rooms.models import Room, RoomPictures
 
 
@@ -88,24 +88,10 @@ class ListRoomView(HotelOwnerRequiredMixin, views.ListView):
         return context
 
 
-class RoomUpdateView(auth_mixins.LoginRequiredMixin, GetHotelIdMixin, views.UpdateView):
+class RoomUpdateView(auth_mixins.LoginRequiredMixin, DispatchHotelIdMixin, views.UpdateView):
     template_name = 'rooms/update_room.html'
     queryset = Room.objects.select_related('hotel').all()
     form_class = RoomUpdateForm
-
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            room_obj = self.get_object()
-            hotel_id = room_obj.hotel_id
-
-            if not request.user.hotel_set.filter(id=hotel_id).exists():
-                # Redirect to 'add_room' if user's hotel does not match the room's hotel
-                return redirect('add_room')
-        except Http404:
-            # Redirect to 'add_room' if room is not found
-            return redirect('add_room')
-
-        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -123,7 +109,7 @@ class RoomUpdateView(auth_mixins.LoginRequiredMixin, GetHotelIdMixin, views.Upda
         return reverse_lazy('room_list', kwargs={'pk': self.hotel_id})
 
 
-class RoomDeleteView(auth_mixins.LoginRequiredMixin, GetHotelIdMixin, views.DeleteView):
+class RoomDeleteView(auth_mixins.LoginRequiredMixin, DispatchHotelIdMixin, views.DeleteView):
     model = Room
 
     def post(self, request, *args, **kwargs):
@@ -160,7 +146,7 @@ class PictureUploadView(HotelOwnerRequiredMixin, views.CreateView):
         return redirect(reverse('upload_image', kwargs={'pk': instance.room.hotel_id}))
 
 
-class PictureListView(RoomOwnerRequiredMixin, views.ListView):
+class PictureListView(auth_mixins.LoginRequiredMixin, views.ListView):
     template_name = 'rooms/pictures_room_list.html'
     paginate_by = 1
 
@@ -168,20 +154,18 @@ class PictureListView(RoomOwnerRequiredMixin, views.ListView):
         room_id = self.kwargs.get('pk')
 
         query = RoomPictures.objects.select_related('room').filter(room_id=room_id)
-        print(query)
+
         return query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        room_picture = self.get_queryset().first()
-        if room_picture:
-            room_id = room_picture.room_id
-            context['hotel_id'] = room_picture.room.hotel_id
+        room_id = self.kwargs.get('pk')
+        room = Room.objects.filter(id=room_id).first()
+        if room:
+            context['hotel_id'] = room.hotel_id
+            context['is_owner'] = room.hotel.user == self.request.user
         else:
-            room_id = self.kwargs.get('pk')
-            room = Room.objects.filter(id=room_id).first()
-            if room:
-                context['hotel_id'] = room.hotel_id
+            context['is_owner'] = False
 
         return context
 
@@ -200,3 +184,11 @@ class PictureDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
         # Redirect to the room after deletion
         return reverse_lazy('room_pictures', kwargs={'pk': room_id})
 
+    def dispatch(self, request, *args, **kwargs):
+
+        picture = self.get_object()
+
+        if request.user != picture.room.hotel.user:
+            return redirect('add_room')
+        
+        return super().dispatch(request, *args, **kwargs)

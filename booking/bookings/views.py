@@ -84,12 +84,16 @@ class BookingDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        cancel_period = self.object.room.hotel.cancel_period
         # Store the cost_of_stay before deleting the booking object
         cost_of_stay = self.object.cost_of_stay
         # Calculate the difference in days between the current date and the booking date
         difference = (self.object.check_in - timezone.now().date()).days
-        if difference >= 2:
+        if difference > cancel_period:
             success_url = self.get_success_url()
+            hotel_owner = self.object.room.hotel.user
+            hotel_owner.profile.money -= cost_of_stay
+            hotel_owner.profile.save()
             user = request.user
             profile = user.profile
             # Increase user's money by the cost_of_stay
@@ -101,14 +105,12 @@ class BookingDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
             # Return the cost_of_stay if deletion is successful
             return HttpResponseRedirect(success_url)
         else:
-            error_message = "Cannot delete the booking as it is less than 2 days away."
+            error_message = f"Cannot delete the booking as it is less than {cancel_period} days away."
             messages.error(request, error_message)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     def get_success_url(self):
         return reverse_lazy('booking_details')
 
-    def get_success_url(self):
-        return reverse_lazy('booking_details')
 
 

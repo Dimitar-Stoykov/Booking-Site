@@ -11,12 +11,22 @@ UserModel = get_user_model()
 class HotelBaseForm(forms.ModelForm):
     class Meta:
         model = Hotel
-        fields = ('hotel_name', 'city', 'location', 'extra_description', 'hotel_picture', 'contact_number', 'user', )
+        fields = ('hotel_name', 'city', 'location', 'extra_description', 'hotel_picture', 'contact_number', 'user', 'cancel_period',)
+
+    cancel_period = forms.IntegerField(
+        label='Cancellation Period (in days)',
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter cancellation period'}),
+        min_value=0  # Ensures cancel period cannot be negative
+    )
 
 
 class HotelCreationForm(HotelBaseForm):
     user = forms.ModelChoiceField(queryset=UserModel.objects.all())
-
+    # cancel_period = forms.IntegerField(
+    #     label='Cancellation Period (in days)',
+    #     widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter cancellation period'}),
+    #     min_value=0  # Ensures cancel period cannot be negative
+    # )
     def __init__(self, *args, **kwargs):
         users = kwargs.pop('users', None)
         super(HotelCreationForm, self).__init__(*args, **kwargs)

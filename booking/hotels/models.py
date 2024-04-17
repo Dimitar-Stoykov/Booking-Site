@@ -58,6 +58,12 @@ class Hotel(models.Model):
         blank=True,
     )
 
+    cancel_period = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        default=0,
+    )
+
     def __str__(self):
         return self.hotel_name
 

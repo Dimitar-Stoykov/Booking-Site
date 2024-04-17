@@ -28,7 +28,7 @@
             </div>
             <form class="booking-form" method="post" action="{% url 'delete_booking' pk=booking.pk %}">
                 {% csrf_token %}
-                <p><strong>You can cancel the booking at least two days before check-in date!!</strong></p>
+                <p><strong>You can cancel the booking at least {{ booking.room.hotel.cancel_period }} days before check-in date!!</strong></p>
                 <button class="cancel-button" type="submit">Cancel Booking</button>
             </form>
         </li>

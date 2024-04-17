@@ -51,8 +51,8 @@
                         {% else %}
                         <p>Price: Not avaiable </p>
                         {% endif %}
-                        <p>Location: {{ hotel.city }}, {{ hotel.location }}</p>
-                        <p>Rating: 7.5</p>
+                        <p>City: {{ hotel.city }}</p>
+                        <p>Location: {{ hotel.location }}</p>
                         <button class="details-button">
                             <a href="{% url 'details_hotel' pk=hotel.pk %}?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}" style="color: inherit; text-decoration: none;">Details</a>
                         </button>

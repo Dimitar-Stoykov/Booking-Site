@@ -35,7 +35,11 @@ class IndexViewUser(auth_mixins.LoginRequiredMixin, GetContextMixin,  views.List
         if check_in_date and check_out_date:
             check_in = timezone.datetime.strptime(check_in_date, '%Y-%m-%d').date()
             check_out = timezone.datetime.strptime(check_out_date, '%Y-%m-%d').date()
-            queryset = queryset.exclude(rooms__booked__check_in__lt=check_out, rooms__booked__check_out__gt=check_in)
+            queryset = queryset.filter(
+                Q(rooms__booked__isnull=True) |
+                Q(rooms__booked__check_in__gt=check_out) |
+                Q(rooms__booked__check_out__lte=check_in)
+            )
 
         queryset = queryset.filter(rooms__isnull=False).distinct()
 

@@ -14,8 +14,6 @@ class GetContextMixin:
 
         hotel_pk = None
 
-        hotel_pk = None
-
         if hasattr(self, 'kwargs') and 'pk' in self.kwargs:
             hotel_pk = self.kwargs['pk']
 

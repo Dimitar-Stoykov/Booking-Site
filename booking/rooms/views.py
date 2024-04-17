@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
-
+from booking.common.mixins import GetContextMixin
 from booking.rooms.forms import RoomCreateForm, RoomPictureUploadForm, ChooseHotelForm, RoomUpdateForm
 from booking.rooms.mixins import HotelOwnerRequiredMixin, RoomOwnerRequiredMixin, DispatchHotelIdMixin
 from booking.rooms.models import Room, RoomPictures
@@ -158,7 +158,13 @@ class PictureListView(auth_mixins.LoginRequiredMixin, views.ListView):
         return query
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        context['check_in_date'] = self.request.GET.get('check_in', '')
+        context['check_out_date'] = self.request.GET.get('check_out', '')
+        context['adults'] = self.request.GET.get('adults', '')
+
         room_id = self.kwargs.get('pk')
         room = Room.objects.filter(id=room_id).first()
         if room:

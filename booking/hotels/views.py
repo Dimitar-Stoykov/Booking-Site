@@ -48,9 +48,23 @@ class HotelStaffListView(StaffRequiredMixin, views.ListView):
         return queryset
 
 
-class HotelDetailView(auth_mixins.LoginRequiredMixin, GetContextMixin,  views.ListView):
+class HotelDetailView(auth_mixins.LoginRequiredMixin, views.ListView):
     template_name = 'hotel/hotel_details_list.html'
     paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        context['check_in_date'] = self.request.GET.get('check_in', '')
+        context['check_out_date'] = self.request.GET.get('check_out', '')
+        context['adults'] = self.request.GET.get('adults', '')
+
+        hotel_pk = self.kwargs['pk']  # Get hotel_pk from URL parameters
+
+        if hotel_pk:
+            context['hotel'] = get_object_or_404(Hotel, pk=hotel_pk)
+
+        return context
 
     def get_queryset(self):
         hotel_pk = self.kwargs.get('pk')

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/booking/create_booking.css' %}">
+{% endblock %}
+
+
+{% block index_content %}
+<div class="container">
+        <div class="form-container">
+            <h2>Booking Form</h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post" action="{% url 'create_booking' %}">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="room_pk" value="{{ room.pk }}">
+                <input type="hidden" name="hotel_pk" value="{{ hotel.pk }}">
+                <input type="hidden" name="search" value="{{ search_query }}">
+                <input type="hidden" name="check_in" value="{{ check_in_date }}">
+                <input type="hidden" name="check_out" value="{{ check_out_date }}">
+                <input type="hidden" name="adults" value="{{ adults }}">
+                <button type="submit">Book Room</button>
+            </form>
+
+    </div>
+<script>
+    // JavaScript to handle redirection
+    document.addEventListener('DOMContentLoaded', function() {
+        const errorMessage = document.querySelector('.messages .error');
+        if (errorMessage) {
+            alert(errorMessage.innerText);
+            // Redirect to profile details page
+            window.location.href = "{% url 'profile_details' request.user.pk %}";
+        }
+    });
+</script>
+
+{% endblock %}

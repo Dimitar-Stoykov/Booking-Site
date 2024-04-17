@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+<style>
+.booking-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.booking-list {
+    list-style: none;
+    padding: 0;
+}
+
+.booking-item {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.booking-form {
+    margin-right: 10px;
+}
+
+.cancel-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #0056b3;
+}
+
+.booking-label {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.no-booking-message {
+    margin-bottom: 20px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block index_content %}
+<div class="container">
+   <h2 class="booking-heading">My Bookings</h2>
+<ul class="booking-list">
+    {% for booking in bookings %}
+    <li class="booking-item">
+        <strong class="booking-label">Booking ID:</strong> {{ booking.id }}<br>
+        <strong class="booking-label">Room:</strong> {{ booking.room }}<br>
+        <strong class="booking-label">Hotel:</strong> {{ booking.room.hotel }}<br>
+        <strong class="booking-label">Check-in Date:</strong> {{ booking.check_in }}<br>
+        <strong class="booking-label">Check-out Date:</strong> {{ booking.check_out }}<br>
+        <strong class="booking-label">Adults:</strong> {{ booking.adults }}<br>
+        <strong class="booking-label">Cost of Stay:</strong> {{ booking.cost_of_stay }}<br>
+        <form class="booking-form" method="post" action="#">
+            {% csrf_token %}
+            <button class="cancel-button" type="submit">Cancel Booking</button>
+        </form>
+    </li>
+    {% empty %}
+    <li class="no-booking-message">No bookings found.</li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

@@ -54,6 +54,7 @@ class Profile(models.Model):
         BookingUser,
         primary_key=True,
         on_delete=models.CASCADE,
+        related_name='profile',
     )
 
     money = models.DecimalField(

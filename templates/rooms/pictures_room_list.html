@@ -41,29 +41,29 @@
                         {% if is_owner %}
                         <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'room_list' pk=hotel_id %}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Rooms List</span></a></li>
                         {% endif %}
-                            <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'details_hotel' pk=hotel_id %}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Hotel Details</span></a></li>
+                            <li class="nav-item"><a class="nav-link px-2 active" href="{% url 'details_hotel' pk=hotel_id %}?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Hotel Details</span></a></li>
                     </ul>
             </div>
             {% endif %}
 
         {% if object_list %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}" class="btn">Previous</a>
-                {% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}&page={{ page_obj.previous_page_number }}" class="btn">Previous</a>
+        {% endif %}
 
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
 
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}" class="btn">Next</a>
-                {% else %}
-                    <a href="?page=1" class="btn">First</a>
-                {% endif %}
-            </span>
-        </div>
+        {% if page_obj.has_next %}
+            <a href="?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}&page={{ page_obj.next_page_number }}" class="btn">Next</a>
+        {% else %}
+            <a href="?search={{ search_query }}&check_in={{ check_in_date }}&check_out={{ check_out_date }}&adults={{ adults }}&page=1" class="btn">First</a>
+        {% endif %}
+    </span>
+</div>
         {% endif %}
     </div>
 </body>

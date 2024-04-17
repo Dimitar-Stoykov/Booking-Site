@@ -56,3 +56,5 @@ class IndexView(views.TemplateView):
             return render(request, self.template_user)
 
 
+class AboutView(views.TemplateView):
+    template_name = 'index/about.html'

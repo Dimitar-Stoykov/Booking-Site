@@ -1,74 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block extra_css %}
-<style>
-.booking-heading {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.booking-list {
-    list-style: none;
-    padding: 0;
-}
-
-.booking-item {
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.booking-form {
-    margin-right: 10px;
-}
-
-.cancel-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.cancel-button:hover {
-    background-color: #0056b3;
-}
-
-.booking-label {
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-.no-booking-message {
-    margin-bottom: 20px;
-}
-
-</style>
-
+    <link type="text/css" rel="stylesheet" href="{% static 'css/booking/booking_list.css' %}" />
 {% endblock %}
 
 {% block index_content %}
+
 <div class="container">
-   <h2 class="booking-heading">My Bookings</h2>
-<ul class="booking-list">
-    {% for booking in bookings %}
-    <li class="booking-item">
-        <strong class="booking-label">Booking ID:</strong> {{ booking.id }}<br>
-        <strong class="booking-label">Room:</strong> {{ booking.room }}<br>
-        <strong class="booking-label">Hotel:</strong> {{ booking.room.hotel }}<br>
-        <strong class="booking-label">Check-in Date:</strong> {{ booking.check_in }}<br>
-        <strong class="booking-label">Check-out Date:</strong> {{ booking.check_out }}<br>
-        <strong class="booking-label">Adults:</strong> {{ booking.adults }}<br>
-        <strong class="booking-label">Cost of Stay:</strong> {{ booking.cost_of_stay }}<br>
-        <form class="booking-form" method="post" action="#">
-            {% csrf_token %}
-            <button class="cancel-button" type="submit">Cancel Booking</button>
-        </form>
-    </li>
-    {% empty %}
-    <li class="no-booking-message">No bookings found.</li>
-    {% endfor %}
-</ul>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    <h2 class="booking-heading"><strong>{% if object_list %}My Bookings{% endif %}</strong></h2>
+    <ul class="booking-list">
+        {% for booking in object_list %}
+        <li class="booking-item">
+            <div class="booking-info">
+                <strong class="booking-label">Room:</strong> {{ booking.room }}<br>
+                <strong class="booking-label">Hotel:</strong> {{ booking.room.hotel }}<br>
+                <strong class="booking-label">Check-in Date:</strong> {{ booking.check_in }}<br>
+                <strong class="booking-label">Check-out Date:</strong> {{ booking.check_out }}<br>
+                <strong class="booking-label">Adults:</strong> {{ booking.adults }}<br>
+                <strong class="booking-label">Cost of Stay:</strong> {{ booking.cost_of_stay }}<br>
+            </div>
+            <form class="booking-form" method="post" action="{% url 'delete_booking' pk=booking.pk %}">
+                {% csrf_token %}
+                <p><strong>You can cancel the booking at least two days before check-in date!!</strong></p>
+                <button class="cancel-button" type="submit">Cancel Booking</button>
+            </form>
+        </li>
+        {% empty %}
+        <li class="no-booking-message">
+            <h1 class="center-text">No bookings found.</h1>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.querySelectorAll('.cancel-button');
+
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            var confirmation = confirm('Are you sure you want to cancel this booking?');
+            if (!confirmation) {
+                event.preventDefault(); // Prevent the default action (form submission) if user cancels
+            }
+        });
+    });
+});
+
+</script>
 {% endblock %}

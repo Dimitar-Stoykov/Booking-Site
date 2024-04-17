@@ -5,6 +5,7 @@ from django.contrib.auth import mixins as auth_mixins
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
+from django.utils import timezone
 from django.views import generic as views
 
 from booking.bookings.forms import BookingForm
@@ -74,5 +75,40 @@ class BookingListView(auth_mixins.LoginRequiredMixin, views.ListView):
     template_name = 'bookings/booking_list.html'
 
     def get_queryset(self):
-        return UserBooking.objects.filter(user_id=self.request.user.pk)
+        # Filter UserBooking objects related to the current user
+        return UserBooking.objects.select_related('user').filter(user=self.request.user)
+
+
+class BookingDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
+    model = UserBooking
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # Store the cost_of_stay before deleting the booking object
+        cost_of_stay = self.object.cost_of_stay
+        # Calculate the difference in days between the current date and the booking date
+        difference = (self.object.check_in - timezone.now().date()).days
+        if difference >= 2:
+            success_url = self.get_success_url()
+            user = request.user
+            profile = user.profile
+            # Increase user's money by the cost_of_stay
+            profile.money += cost_of_stay
+            profile.save()
+            self.object.delete()
+            success_message = f'Booking was deleted successfully. Returned money {cost_of_stay}.'
+            messages.success(request, success_message)
+            # Return the cost_of_stay if deletion is successful
+            return HttpResponseRedirect(success_url)
+        else:
+            error_message = "Cannot delete the booking as it is less than 2 days away."
+            messages.error(request, error_message)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+    def get_success_url(self):
+        return reverse_lazy('booking_details')
+
+    def get_success_url(self):
+        return reverse_lazy('booking_details')
+
 

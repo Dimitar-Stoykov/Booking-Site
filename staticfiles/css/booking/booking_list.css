@@ -1,0 +1,86 @@
+body {
+    background-image: url("https://www.creativefabrica.com/wp-content/uploads/2022/07/28/Smooth-colors-gradient-background-Graphics-35009207-1.jpg");
+}
+
+.booking-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.container {
+    background-image: url("https://img.freepik.com/premium-photo/abstract-blue-background-with-smooth-lines_476363-6029.jpg");
+    max-width: 600px;
+    margin: 80px auto 0; /* Updated margin-top to 40px */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.booking-list {
+    list-style: none;
+    padding: 0;
+}
+
+.booking-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.booking-item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.booking-form {
+    margin-right: 5px; /* Decrease right margin */
+    margin-top: 5px; /* Add top margin */
+    padding: 5px; /* Decrease padding */
+}
+
+.cancel-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #0056b3;
+}
+
+.booking-label {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.no-booking-message {
+    margin-bottom: 20px;
+}
+.center-text {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.messages {
+    margin: 20px auto; /* Add margin to center the messages horizontally */
+    padding: 10px; /* Add padding to create space within the messages */
+    background-color: #f44336; /* Set background color for error messages */
+    color: #fff; /* Set text color for error messages */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    text-align: center; /* Center-align the messages */
+    max-width: 600px; /* Limit the width of the messages */
+}
+
+.messages li {
+    margin-bottom: 5px; /* Add margin between individual messages */
+}
